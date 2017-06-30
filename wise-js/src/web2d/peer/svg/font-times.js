@@ -1,16 +1,21 @@
-web2d.peer.svg.TimesFont = new Class({
-    Extends: web2d.peer.svg.Font,
+/* global define, document */
+'use strict';
 
-    initialize: function() {
-        this.parent();
-        this._fontFamily = "times";
-    },
+define(['utils/is-defined', 'web2d/font', 'web2d/peer/svg/font'], ($defined, Font, FontPeer) => {
+    class TimesFont extends FontPeer {
+        constructor() {
+            super();
+            this._fontFamily = 'Times';
+        }
 
-    getFontFamily: function() {
-        return this._fontFamily;
-    },
+        getFontFamily() {
+            return this._fontFamily;
+        }
 
-    getFont: function() {
-        return web2d.Font.TIMES;
+        getFont() {
+            return Font.TIMES;
+        }
     }
+
+    return TimesFont;
 });

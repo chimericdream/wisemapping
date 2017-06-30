@@ -1,4 +1,4 @@
-/* global define, window */
+/* global define, document */
 'use strict';
 
 define(['utils/is-defined'], ($defined) => {
@@ -14,7 +14,7 @@ define(['utils/is-defined'], ($defined) => {
         }
 
         static createDocument() {
-            return window.document.implementation.createDocument('', '', null);
+            return document.implementation.createDocument('', '', null);
         }
     }
 

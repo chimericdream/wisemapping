@@ -1,118 +1,113 @@
-web2d.peer.svg.GroupPeer = new Class({
-    Extends: web2d.peer.svg.ElementPeer,
+/* global define, document */
+'use strict';
 
-    initialize: function() {
-        var svgElement = window.document.createElementNS(this.svgNamespace, 'g');
-        this.parent(svgElement);
-        this._native.setAttribute("preserveAspectRatio", "none");
-        this._coordSize = {width: 1, height: 1};
-        this._native.setAttribute("focusable", "true");
-        this._position = {x: 0, y: 0};
-        this._coordOrigin = {x: 0, y: 0};
-    },
-
-    setCoordSize: function(width, height) {
-        var change = this._coordSize.width != width || this._coordSize.height != height;
-        this._coordSize.width = width;
-        this._coordSize.height = height;
-
-        if (change) {
-            this.updateTransform();
-        }
-        web2d.peer.utils.EventUtils.broadcastChangeEvent(this, "strokeStyle");
-    },
-
-    getCoordSize: function() {
-        return {width: this._coordSize.width, height: this._coordSize.height};
-    },
-
-    /**
-     * http://www.w3.org/TR/SVG/coords.html#TransformAttribute
-     * 7.6 The transform  attribute
-     *
-     * The value of the transform attribute is a <transform-list>, which is defined as a list of transform definitions, which are applied in the order provided. The individual transform definitions are separated by whitespace and/or a comma. The available types of transform definitions include:
-     *
-     *    * matrix(<a> <b> <c> <d> <e> <f>), which specifies a transformation in the form of a transformation matrix of six values. matrix(a,b,c,d,e,f) is equivalent to applying the transformation matrix [a b c d e f].
-     *
-     *    * translate(<tx> [<ty>]), which specifies a translation by tx and ty. If <ty> is not provided, it is assumed to be zero.
-     *
-     *    * scale(<sx> [<sy>]), which specifies a scale operation by sx and sy. If <sy> is not provided, it is assumed to be equal to <sx>.
-     *
-     *    * rotate(<rotate-angle> [<cx> <cy>]), which specifies a rotation by <rotate-angle> degrees about a given point.
-     *      If optional parameters <cx> and <cy> are not supplied, the rotate is about the origin of the current user coordinate system. The operation corresponds to the matrix [cos(a) sin(a) -sin(a) cos(a) 0 0].
-     *      If optional parameters <cx> and <cy> are supplied, the rotate is about the point (<cx>, <cy>). The operation represents the equivalent of the following specification: translate(<cx>, <cy>) rotate(<rotate-angle>) translate(-<cx>, -<cy>).
-     *
-     *    * skewX(<skew-angle>), which specifies a skew transformation along the x-axis.
-     *
-     *    * skewY(<skew-angle>), which specifies a skew transformation along the y-axis.
-     **/
-
-    updateTransform: function() {
-        var sx = this._size.width / this._coordSize.width;
-        var sy = this._size.height / this._coordSize.height;
-
-        var cx = this._position.x - this._coordOrigin.x * sx;
-        var cy = this._position.y - this._coordOrigin.y * sy;
-
-        //FIXME: are we sure of this values?
-        cx = isNaN(cx) ? 0 : cx;
-        cy = isNaN(cy) ? 0 : cy;
-        sx = isNaN(sx) ? 0 : sx;
-        sy = isNaN(sy) ? 0 : sy;
-
-        this._native.setAttribute("transform", "translate(" + cx + "," + cy + ") scale(" + sx + "," + sy + ")");
-    },
-
-    setOpacity: function(value) {
-        this._native.setAttribute("opacity", value);
-    },
-
-    setCoordOrigin: function(x, y) {
-        var change = x != this._coordOrigin.x || y != this._coordOrigin.y;
-        if ($defined(x)) {
-            this._coordOrigin.x = x;
+define([
+    'utils/is-defined',
+    'web2d/point',
+    'web2d/peer/svg/element',
+    'web2d/peer/utils/event-utils'
+], (
+    $defined,
+    Point,
+    ElementPeer,
+    EventUtils
+) => {
+    class GroupPeer extends ElementPeer {
+        constructor() {
+            let svgElement = document.createElementNS(ElementPeer.svgNamespace, 'g');
+            super(svgElement);
+            this._native.setAttribute('preserveAspectRatio', 'none');
+            this._coordSize = {'width': 1, 'height': 1};
+            this._native.setAttribute('focusable', 'true');
+            this._position = {'x': 0, 'y': 0};
+            this._coordOrigin = {'x': 0, 'y': 0};
         }
 
-        if ($defined(y)) {
-            this._coordOrigin.y = y;
-        }
-        if (change) {
-            this.updateTransform();
-        }
-    },
+        setCoordSize(width, height) {
+            let change = this._coordSize.width != width || this._coordSize.height != height;
+            this._coordSize.width = width;
+            this._coordSize.height = height;
 
-    setSize: function(width, height) {
-        var change = width != this._size.width || height != this._size.height;
-        this.parent(width, height);
-        if (change) {
-            this.updateTransform();
-        }
-    },
-
-    setPosition: function(x, y) {
-        var change = x != this._position.x || y != this._position.y;
-        if ($defined(x)) {
-            this._position.x = parseInt(x);
+            if (change) {
+                this.updateTransform();
+            }
+            EventUtils.broadcastChangeEvent(this, 'strokeStyle');
         }
 
-        if ($defined(y)) {
-            this._position.y = parseInt(y);
+        getCoordSize() {
+            return {'width': this._coordSize.width, 'height': this._coordSize.height};
         }
-        if (change) {
-            this.updateTransform();
+
+        updateTransform() {
+            let sx = this._size.width / this._coordSize.width;
+            let sy = this._size.height / this._coordSize.height;
+
+            let cx = this._position.x - this._coordOrigin.x * sx;
+            let cy = this._position.y - this._coordOrigin.y * sy;
+
+            //FIXME: are we sure of this values?
+            cx = isNaN(cx) ? 0 : cx;
+            cy = isNaN(cy) ? 0 : cy;
+            sx = isNaN(sx) ? 0 : sx;
+            sy = isNaN(sy) ? 0 : sy;
+
+            this._native.setAttribute('transform', `translate(${cx},${cy}) scale(${sx},${sy})`);
         }
-    },
 
-    getPosition: function() {
-        return {x: this._position.x, y: this._position.y};
-    },
+        setOpacity(value) {
+            this._native.setAttribute('opacity', value);
+        }
 
-    append: function(child) {
-        this.parent(child);
-        web2d.peer.utils.EventUtils.broadcastChangeEvent(child, "onChangeCoordSize");
-    },
+        setCoordOrigin(x, y) {
+            let change = x != this._coordOrigin.x || y != this._coordOrigin.y;
+            if ($defined(x)) {
+                this._coordOrigin.x = x;
+            }
 
-    getCoordOrigin: function() {
-        return {x: this._coordOrigin.x, y: this._coordOrigin.y};
+            if ($defined(y)) {
+                this._coordOrigin.y = y;
+            }
+
+            if (change) {
+                this.updateTransform();
+            }
+        }
+
+        setSize(width, height) {
+            let change = width != this._size.width || height != this._size.height;
+            super.setSize(width, height);
+            if (change) {
+                this.updateTransform();
+            }
+        }
+
+        setPosition(x, y) {
+            let change = x != this._position.x || y != this._position.y;
+            if ($defined(x)) {
+                this._position.x = parseInt(x);
+            }
+
+            if ($defined(y)) {
+                this._position.y = parseInt(y);
+            }
+            if (change) {
+                this.updateTransform();
+            }
+        }
+
+        getPosition() {
+            return {'x': this._position.x, 'y': this._position.y};
+        }
+
+        append(child) {
+            super.append(child);
+            EventUtils.broadcastChangeEvent(child, 'onChangeCoordSize');
+        }
+
+        getCoordOrigin() {
+            return {'x': this._coordOrigin.x, 'y': this._coordOrigin.y};
+        }
     }
+
+    return GroupPeer;
 });

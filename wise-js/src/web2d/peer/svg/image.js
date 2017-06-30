@@ -1,30 +1,35 @@
-web2d.peer.svg.ImagePeer = new Class({
-    Extends: web2d.peer.svg.ElementPeer,
+/* global define, document */
+'use strict';
 
-    initialize: function() {
-        var svgElement = window.document.createElementNS(this.svgNamespace, 'image');
-        this.parent(svgElement);
-        this._position = {x:0,y:0};
-        this._href = "";
-        this._native.setAttribute("preserveAspectRatio", "none");
-    },
+define(['utils/is-defined', 'web2d/peer/svg/element'], ($defined, ElementPeer) => {
+    class ImagePeer extends ElementPeer {
+        constructor() {
+            let svgElement = document.createElementNS(ElementPeer.svgNamespace, 'image');
+            super(svgElement);
+            this._position = {'x': 0, 'y': 0};
+            this._href = '';
+            this._native.setAttribute('preserveAspectRatio', 'none');
+        }
 
-    setPosition: function(x, y) {
-        this._position = {x:x, y:y};
-        this._native.setAttribute('y', y);
-        this._native.setAttribute('x', x);
-    },
+        setPosition(x, y) {
+            this._position = {'x': x, 'y': y};
+            this._native.setAttribute('y', y);
+            this._native.setAttribute('x', x);
+        }
 
-    getPosition: function() {
-        return this._position;
-    },
+        getPosition() {
+            return this._position;
+        }
 
-    setHref: function(url) {
-        this._native.setAttributeNS(this.linkNamespace, "href", url);
-        this._href = url;
-    },
+        setHref(url) {
+            this._native.setAttributeNS(ElementPeer.linkNamespace, 'href', url);
+            this._href = url;
+        }
 
-    getHref: function() {
-        return this._href;
+        getHref() {
+            return this._href;
+        }
     }
+
+    return ImagePeer;
 });

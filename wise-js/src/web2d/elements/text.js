@@ -1,78 +1,86 @@
-web2d.Text = new Class({
-    Extends: web2d.Element,
+/* global define */
+'use strict';
 
-    initialize: function(attributes) {
-        var peer = web2d.peer.Toolkit.createText();
-        this.parent(peer, attributes);
-    },
+define(['util/assert', 'element', 'toolkit'], ($assert, Element, Toolkit) => {
+    class Text extends Element {
+        static get TYPE() {
+            return 'Text';
+        }
 
-    getType: function() {
-        return "Text";
-    },
+        static get defaults() {
+            return {};
+        }
 
-    setText: function(text) {
-        this._peer.setText(text);
-    },
+        constructor(params) {
+            super(Toolkit.createText(), this._initializeAttributes(this.defaults, params));
+        }
 
-    setTextAlignment: function(align) {
-        $assert(align, "align can not be null");
-        this._peer.setTextAlignment(align);
-    },
+        setText(text) {
+            this._peer.setText(text);
+        }
 
-    setTextSize: function(width, height) {
-        this._peer.setContentSize(width, height);
-    },
+        setTextAlignment(align) {
+            $assert(align, 'align can not be null');
+            this._peer.setTextAlignment(align);
+        }
 
-    getText: function() {
-        return this._peer.getText();
-    },
+        setTextSize(width, height) {
+            this._peer.setContentSize(width, height);
+        }
 
-    setFont: function(font, size, style, weight) {
-        this._peer.setFont(font, size, style, weight);
-    },
+        getText() {
+            return this._peer.getText();
+        }
 
-    setColor: function(color) {
-        this._peer.setColor(color);
-    },
+        setFont(font, size, style, weight) {
+            this._peer.setFont(font, size, style, weight);
+        }
 
-    getColor: function() {
-        return this._peer.getColor();
-    },
+        setColor(color) {
+            this._peer.setColor(color);
+        }
 
-    setStyle: function(style) {
-        this._peer.setStyle(style);
-    },
+        getColor() {
+            return this._peer.getColor();
+        }
 
-    setWeight: function(weight) {
-        this._peer.setWeight(weight);
-    },
+        setStyle(style) {
+            this._peer.setStyle(style);
+        }
 
-    setFontFamily: function(family) {
-        this._peer.setFontFamily(family);
-    },
+        setWeight(weight) {
+            this._peer.setWeight(weight);
+        }
 
-    getFont: function() {
-        return this._peer.getFont();
-    },
+        setFontFamily(family) {
+            this._peer.setFontFamily(family);
+        }
 
-    setSize: function(size) {
-        this._peer.setSize(size);
-    },
+        getFont() {
+            return this._peer.getFont();
+        }
 
-    getHtmlFontSize: function() {
-        return this._peer.getHtmlFontSize();
-    },
+        setSize(size) {
+            this._peer.setSize(size);
+        }
 
-    getWidth: function() {
-        return this._peer.getWidth();
-    },
+        getHtmlFontSize() {
+            return this._peer.getHtmlFontSize();
+        }
 
-    getHeight: function() {
-        return parseInt(this._peer.getHeight());
-    },
+        getWidth() {
+            return this._peer.getWidth();
+        }
 
-    getFontHeight: function() {
-        var lines = this._peer.getText().split('\n').length;
-        return Math.round(this.getHeight() / lines);
+        getHeight() {
+            return parseInt(this._peer.getHeight());
+        }
+
+        getFontHeight() {
+            let lines = this._peer.getText().split('\n').length;
+            return Math.round(this.getHeight() / lines);
+        }
     }
+
+    return Text;
 });

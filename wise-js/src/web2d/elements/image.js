@@ -1,24 +1,29 @@
-web2d.Image = new Class({
-    Extends: web2d.Element,
+/* global define */
+'use strict';
 
-    initialize: function(attributes) {
-        var peer = web2d.peer.Toolkit.createImage();
-        this.parent(peer, attributes);
-    },
+define(['element', 'toolkit'], (Element, Toolkit) => {
+    class Image extends Element {
+        static get TYPE() {
+            return 'Image';
+        }
 
-    getType: function() {
-        return "Image";
-    },
+        constructor(attributes) {
+            let peer = Toolkit.createImage();
+            super(peer, attributes);
+        }
 
-    setHref: function(href) {
-        this._peer.setHref(href);
-    },
+        setHref(href) {
+            this._peer.setHref(href);
+        }
 
-    getHref: function() {
-        return this._peer.getHref();
-    },
+        getHref() {
+            return this._peer.getHref();
+        }
 
-    getSize: function() {
-        return this._peer.getSize();
+        getSize() {
+            return this._peer.getSize();
+        }
     }
+
+    return Image;
 });

@@ -1,7 +1,42 @@
 /* global define */
 'use strict';
 
-define(['peer/svg/arrow', 'peer/svg/curved-line', 'peer/svg/element', 'peer/svg/ellipse', 'peer/svg/font', 'peer/svg/font-arial', 'peer/svg/font-tahoma', 'peer/svg/font-times', 'peer/svg/font-verdana', 'peer/svg/group', 'peer/svg/image', 'peer/svg/line', 'peer/svg/poly-line', 'peer/svg/rect', 'peer/svg/text', 'peer/svg/workspace'], (Arrow, CurvedLine, Element, Ellipse, Font, FontArial, FontTahoma, FontTimes, FontVerdana, Group, Image, Line, PolyLine, Rect, Text, Workspace) => {
+define([
+    'web2d/peer/svg/arrow',
+    'web2d/peer/svg/curved-line',
+    'web2d/peer/svg/element',
+    'web2d/peer/svg/ellipse',
+    'web2d/peer/svg/font',
+    'web2d/peer/svg/font-arial',
+    'web2d/peer/svg/font-tahoma',
+    'web2d/peer/svg/font-times',
+    'web2d/peer/svg/font-verdana',
+    'web2d/peer/svg/group',
+    'web2d/peer/svg/image',
+    'web2d/peer/svg/line',
+    'web2d/peer/svg/poly-line',
+    'web2d/peer/svg/rect',
+    'web2d/peer/svg/text',
+    'web2d/peer/svg/workspace'
+],
+(
+    Arrow,
+    CurvedLine,
+    Element,
+    Ellipse,
+    Font,
+    FontArial,
+    FontTahoma,
+    FontTimes,
+    FontVerdana,
+    Group,
+    Image,
+    Line,
+    PolyLine,
+    Rect,
+    Text,
+    Workspace
+) => {
     class Toolkit {
         static createWorkspace(element) {
             return new Workspace(element);

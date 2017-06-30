@@ -15,7 +15,7 @@ define(['assert', 'element', 'toolkit'], ($assert, Element, Toolkit) => {
             return 'CurvedLine';
         }
 
-        get defaults() {
+        static get defaults() {
             return {
                 'strokeColor': 'blue',
                 'strokeWidth': 1,

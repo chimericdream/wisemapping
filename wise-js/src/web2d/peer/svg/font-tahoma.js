@@ -1,16 +1,21 @@
-web2d.peer.svg.TahomaFont = new Class({
-    Extends: web2d.peer.svg.Font,
+/* global define, document */
+'use strict';
 
-    initialize: function() {
-        this.parent();
-        this._fontFamily = "tahoma";
-    },
+define(['utils/is-defined', 'web2d/font', 'web2d/peer/svg/font'], ($defined, Font, FontPeer) => {
+    class TahomaFont extends FontPeer {
+        constructor() {
+            super();
+            this._fontFamily = 'Tahoma';
+        }
 
-    getFontFamily: function() {
-        return this._fontFamily;
-    },
+        getFontFamily() {
+            return this._fontFamily;
+        }
 
-    getFont: function() {
-        return web2d.Font.TAHOMA;
+        getFont() {
+            return Font.TAHOMA;
+        }
     }
+
+    return TahomaFont;
 });

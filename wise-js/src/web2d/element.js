@@ -2,51 +2,53 @@
 'use strict';
 
 define(['assert', 'is-defined'], ($assert, $defined) => {
-    const _SIGNATURE_MULTIPLE_ARGUMENTS = -1;
-
-    const _supportedEvents = ['click', 'dblclick', 'mousemove', 'mouseout', 'mouseover', 'mousedown', 'mouseup'];
-
-    const _propertyNameToSignature = {
-        // Format: [attribute name, argument position on setter, attribute name on getter]
-        size: ['size', -1],
-        width: ['size', 0, 'width'],
-        height: ['size', 1, 'height'],
-
-        position: ['position', -1],
-        x: ['position', 0, 'x'],
-        y: ['position', 1, 'y'],
-
-        stroke: ['stroke', -1],
-        strokeWidth: ['stroke', 0, 'width'],
-        strokeStyle: ['stroke', 1, 'style'],
-        strokeColor: ['stroke', 2, 'color'],
-        strokeOpacity: ['stroke', 3, 'opacity'],
-
-        fill: ['fill', -1],
-        fillColor: ['fill', 0, 'color'],
-        fillOpacity: ['fill', 1, 'opacity'],
-
-        coordSize: ['coordSize', -1],
-        coordSizeWidth: ['coordSize', 0, 'width'],
-        coordSizeHeight: ['coordSize', 1, 'height'],
-
-        coordOrigin: ['coordOrigin', -1],
-        coordOriginX: ['coordOrigin', 0, 'x'],
-        coordOriginY: ['coordOrigin', 1, 'y'],
-
-        visibility: ['visibility', 0],
-        opacity: ['opacity', 0]
-    };
-
     class Element {
+        static get _SIGNATURE_MULTIPLE_ARGUMENTS() {
+            return -1;
+        }
+
+        static get _supportedEvents() {
+            return ['click', 'dblclick', 'mousemove', 'mouseout', 'mouseover', 'mousedown', 'mouseup'];
+        }
+
+        static get _propertyNameToSignature() {
+            return {
+                // Format: [attribute name, argument position on setter, attribute name on getter]
+                'size': ['size', -1],
+                'width': ['size', 0, 'width'],
+                'height': ['size', 1, 'height'],
+
+                'position': ['position', -1],
+                'x': ['position', 0, 'x'],
+                'y': ['position', 1, 'y'],
+
+                'stroke': ['stroke', -1],
+                'strokeWidth': ['stroke', 0, 'width'],
+                'strokeStyle': ['stroke', 1, 'style'],
+                'strokeColor': ['stroke', 2, 'color'],
+                'strokeOpacity': ['stroke', 3, 'opacity'],
+
+                'fill': ['fill', -1],
+                'fillColor': ['fill', 0, 'color'],
+                'fillOpacity': ['fill', 1, 'opacity'],
+
+                'coordSize': ['coordSize', -1],
+                'coordSizeWidth': ['coordSize', 0, 'width'],
+                'coordSizeHeight': ['coordSize', 1, 'height'],
+
+                'coordOrigin': ['coordOrigin', -1],
+                'coordOriginX': ['coordOrigin', 0, 'x'],
+                'coordOriginY': ['coordOrigin', 1, 'y'],
+
+                'visibility': ['visibility', 0],
+                'opacity': ['opacity', 0]
+            };
+        }
+
         constructor(peer, attributes) {
             $assert((peer !== null), 'Element peer can not be null');
 
             this._peer = peer;
-
-            this._SIGNATURE_MULTIPLE_ARGUMENTS = _SIGNATURE_MULTIPLE_ARGUMENTS;
-            this._supportedEvents = _supportedEvents;
-            this._propertyNameToSignature = _propertyNameToSignature;
 
             if ($defined(attributes)) {
                 this._initialize(attributes);
@@ -201,27 +203,26 @@ define(['assert', 'is-defined'], ($assert, $defined) => {
          *       fill, fillColor, fillOpacity, coordSize, coordSizeWidth, coordSizeHeight, coordOrigin, coordOriginX, coordOrigiY
          */
         setAttribute(key, value) {
-            var funcName = this._attributeNameToFuncName(key, 'set');
-            var signature = this._propertyNameToSignature[key];
+            let funcName = this._attributeNameToFuncName(key, 'set');
+            let signature = this._propertyNameToSignature[key];
             if (signature == null) {
                 throw `Could not find the signature for: ${key}`;
             }
 
             // Parse arguments ..
-            var argPositions = signature[1];
-            var args = [];
+            let argPositions = signature[1];
+            let args = [];
             if (argPositions !== this._SIGNATURE_MULTIPLE_ARGUMENTS) {
                 args[argPositions] = value;
-            }
-            else if (typeof value == 'array') {
+            } else if (typeof value == 'array') {
                 args = value;
             } else {
-                var strValue = String(value);
+                let strValue = String(value);
                 args = strValue.split(' ');
             }
 
             // Look up method ...
-            var setter = this[funcName];
+            let setter = this[funcName];
             if (setter == null) {
                 throw `Could not find the function name: ${funcName}`;
             }

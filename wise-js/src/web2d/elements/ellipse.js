@@ -7,7 +7,7 @@ define(['element', 'toolkit'], (Element, Toolkit) => {
             return 'Ellipse';
         }
 
-        get defaults() {
+        static get defaults() {
             return {
                 'width': 40,
                 'height': 40,

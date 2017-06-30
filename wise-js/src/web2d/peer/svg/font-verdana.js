@@ -1,16 +1,21 @@
-web2d.peer.svg.VerdanaFont = new Class({
-    Extends: web2d.peer.svg.Font,
+/* global define, document */
+'use strict';
 
-    initialize: function() {
-        this.parent();
-        this._fontFamily = "verdana";
-    },
+define(['utils/is-defined', 'web2d/font', 'web2d/peer/svg/font'], ($defined, Font, FontPeer) => {
+    class VerdanaFont extends FontPeer {
+        constructor() {
+            super();
+            this._fontFamily = 'Verdana';
+        }
 
-    getFontFamily: function() {
-        return this._fontFamily;
-    },
+        getFontFamily() {
+            return this._fontFamily;
+        }
 
-    getFont: function() {
-        return web2d.Font.VERDANA;
+        getFont() {
+            return Font.VERDANA;
+        }
     }
+
+    return VerdanaFont;
 });

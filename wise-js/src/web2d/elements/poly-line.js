@@ -1,58 +1,67 @@
-web2d.PolyLine = new Class({
-    Extends: web2d.Element,
+/* global define */
+'use strict';
 
-    initialize: function(attributes) {
-        var peer = web2d.peer.Toolkit.createPolyLine();
-        var defaultAttributes = {strokeColor:'blue',strokeWidth:1,strokeStyle:'solid',strokeOpacity:1};
-        for (var key in attributes) {
-            defaultAttributes[key] = attributes[key];
-        }
-        this.parent(peer, defaultAttributes);
-    },
-
-    getType: function() {
-        return "PolyLine";
-    },
-
-    setFrom: function(x, y) {
-        this._peer.setFrom(x, y);
-    },
-
-    setTo: function(x, y) {
-        this._peer.setTo(x, y);
-    },
-
-    setStyle: function(style) {
-        this._peer.setStyle(style);
-    },
-
-    getStyle: function() {
-        return this._peer.getStyle();
-    },
-
-    buildCurvedPath: function(dist, x1, y1, x2, y2) {
-        var signx = 1;
-        var signy = 1;
-        if (x2 < x1) {
-            signx = -1;
-        }
-        if (y2 < y1) {
-            signy = -1;
+define(['element', 'toolkit'], (Element, Toolkit) => {
+    class PolyLine extends Element {
+        static get TYPE() {
+            return 'PolyLine';
         }
 
-        var path;
-        if (Math.abs(y1 - y2) > 2) {
-            var middlex = x1 + ((x2 - x1 > 0) ? dist : -dist);
-            path = x1.toFixed(1) + ", " + y1.toFixed(1) + " " + middlex.toFixed(1) + ", " + y1.toFixed(1) + " " + middlex.toFixed(1) + ", " + (y2 - 5 * signy).toFixed(1) + " " + (middlex + 5 * signx).toFixed(1) + ", " + y2.toFixed(1) + " " + x2.toFixed(1) + ", " + y2.toFixed(1);
-        } else {
-            path = x1.toFixed(1) + ", " + y1.toFixed(1) + " " + x2.toFixed(1) + ", " + y2.toFixed(1);
+        static get defaults() {
+            return {
+                'strokeColor': 'blue',
+                'strokeWidth': 1,
+                'strokeStyle': 'solid',
+                'strokeOpacity': 1
+            };
         }
 
-        return path;
-    },
+        constructor(params) {
+            super(Toolkit.createPolyLine(), this._initializeAttributes(this.defaults, params));
+        }
 
-    buildStraightPath: function(dist, x1, y1, x2, y2) {
-        var middlex = x1 + ((x2 - x1 > 0) ? dist : -dist);
-        return  x1 + ", " + y1 + " " + middlex + ", " + y1 + " " + middlex + ", " + y2 + " " + x2 + ", " + y2;
+        setFrom(x, y) {
+            this._peer.setFrom(x, y);
+        }
+
+        setTo(x, y) {
+            this._peer.setTo(x, y);
+        }
+
+        setStyle(style) {
+            this._peer.setStyle(style);
+        }
+
+        getStyle() {
+            return this._peer.getStyle();
+        }
+
+        buildCurvedPath(dist, x1, y1, x2, y2) {
+            let signx = 1;
+            let signy = 1;
+            if (x2 < x1) {
+                signx = -1;
+            }
+            if (y2 < y1) {
+                signy = -1;
+            }
+
+            let path;
+            if (Math.abs(y1 - y2) > 2) {
+                let middlex = x1 + ((x2 - x1 > 0) ? dist : -dist);
+                path = x1.toFixed(1) + ', ' + y1.toFixed(1) + ' ' + middlex.toFixed(1) + ', ' + y1.toFixed(1) + ' ' + middlex.toFixed(1) + ', ' + (y2 - 5 * signy).toFixed(1) + ' ' + (middlex + 5 * signx).toFixed(1) + ', ' + y2.toFixed(1) + ' ' + x2.toFixed(1) + ', ' + y2.toFixed(1);
+            } else {
+                path = x1.toFixed(1) + ', ' + y1.toFixed(1) + ' ' + x2.toFixed(1) + ', ' + y2.toFixed(1);
+            }
+
+            return path;
+        }
+
+        buildStraightPath(dist, x1, y1, x2, y2) {
+            let middlex = x1 + ((x2 - x1 > 0) ? dist : -dist);
+            return  x1 + ', ' + y1 + ' ' + middlex + ', ' + y1 + ' ' + middlex + ', ' + y2 + ' ' + x2 + ', ' + y2;
+        }
     }
+
+    return PolyLine;
 });

@@ -7,7 +7,7 @@ define(['jQuery', 'assert', 'is-defined', 'element', 'toolkit'], ($, $assert, $d
             return 'Workspace';
         }
 
-        get defaults() {
+        static get defaults() {
             return {
                 'width': '200px',
                 'height': '200px',

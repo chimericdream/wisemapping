@@ -7,7 +7,7 @@ define(['element', 'toolkit'], (Element, Toolkit) => {
             return 'Arrow';
         }
 
-        get defaults() {
+        static get defaults() {
             return {
                 'strokeColor': 'black',
                 'strokeWidth': 1,

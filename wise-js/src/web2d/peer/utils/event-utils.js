@@ -1,17 +1,22 @@
-web2d.peer.utils.EventUtils = {
-    broadcastChangeEvent: function(elementPeer, type) {
-        var listeners = elementPeer.getChangeEventListeners(type);
-        if ($defined(listeners)) {
-            for (var i = 0; i < listeners.length; i++) {
-                var listener = listeners[i];
-                listener.call(elementPeer, null);
-            }
-        }
+/* global define */
+'use strict';
 
-        var children = elementPeer.getChildren();
-        for (var j = 0; j < children.length; j++) {
-            var child = children[j];
-            web2d.peer.utils.EventUtils.broadcastChangeEvent(child, type);
+define(['utils/is-defined'], ($defined) => {
+    class EventUtils {
+        static broadcastChangeEvent(elementPeer, type) {
+            let listeners = elementPeer.getChangeEventListeners(type);
+            if ($defined(listeners)) {
+                listeners.forEach((listener) => {
+                    listener.call(elementPeer, null);
+                });
+            }
+
+            let children = elementPeer.getChildren();
+            children.forEach((child) => {
+                EventUtils.broadcastChangeEvent(child, type);
+            });
         }
     }
-};
+
+    return EventUtils;
+});

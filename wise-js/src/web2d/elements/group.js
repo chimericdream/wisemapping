@@ -7,7 +7,7 @@ define(['assert', 'is-defined', 'element', 'toolkit'], ($assert, $defined, Eleme
             return 'Group';
         }
 
-        get defaults() {
+        static get defaults() {
             return {
                 'width': 50,
                 'height': 50,
