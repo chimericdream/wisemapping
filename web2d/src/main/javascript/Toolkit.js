@@ -3,63 +3,59 @@
 
 define(['peer/svg/arrow', 'peer/svg/curved-line', 'peer/svg/element', 'peer/svg/ellipse', 'peer/svg/font', 'peer/svg/font-arial', 'peer/svg/font-tahoma', 'peer/svg/font-times', 'peer/svg/font-verdana', 'peer/svg/group', 'peer/svg/image', 'peer/svg/line', 'peer/svg/poly-line', 'peer/svg/rect', 'peer/svg/text', 'peer/svg/workspace'], (Arrow, CurvedLine, Element, Ellipse, Font, FontArial, FontTahoma, FontTimes, FontVerdana, Group, Image, Line, PolyLine, Rect, Text, Workspace) => {
     class Toolkit {
-        constructor() {
-        }
-
-        createWorkspace(element) {
+        static createWorkspace(element) {
             return new Workspace(element);
         }
 
-        createGroup() {
+        static createGroup() {
             return new Group();
         }
 
-        createElipse() {
+        static createElipse() {
             return new Elipse();
         }
 
-        createLine() {
+        static createLine() {
             return new Line();
         }
 
-        createPolyLine() {
+        static createPolyLine() {
             return new PolyLine();
         }
 
-        createCurvedLine() {
+        static createCurvedLine() {
             return new CurvedLine();
         }
 
-        createArrow() {
+        static createArrow() {
             return new Arrow();
         }
 
-        createText() {
+        static createText() {
             return new Text();
         }
 
-        createImage() {
+        static createImage() {
             return new Image();
         }
 
-        createRect(arc) {
+        static createRect(arc) {
             return new Rect(arc);
         }
 
-        createArialFont() {
-            return new FontArial();
-        }
-
-        createTimesFont() {
-            return new FontTimes();
-        }
-
-        createVerdanaFont() {
-            return new FontVerdana();
-        }
-
-        createTahomaFont() {
-            return new FontTahoma();
+        static createFont(fontName) {
+            switch (fontName) {
+                case 'Arial':
+                    return new FontArial();
+                case 'Times':
+                    return new FontTimes();
+                case 'Verdana':
+                    return new FontVerdana();
+                case 'Tahoma':
+                    return new FontTahoma();
+                default:
+                    //@TODO: throw
+            }
         }
     }
 

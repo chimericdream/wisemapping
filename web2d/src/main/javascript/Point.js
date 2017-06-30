@@ -1,34 +1,40 @@
-core.Point = new Class({
-    /**
-     * @constructs
-     * @param {Number} x coordinate
-     * @param {Number} y coordinate
-     */
-    initialize: function(x, y) {
-        this.x = x;
-        this.y = y;
-    },
+/* global define */
+'use strict';
 
-    /**
-     * @param {Number} x coordinate
-     * @param {Number} y coordinate
-     */
-    setValue: function(x, y) {
-        this.x = x;
-        this.y = y;
-    },
+define(() => {
+    class Point {
+        /**
+         * @constructs
+         * @param {Number} x coordinate
+         * @param {Number} y coordinate
+         */
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
 
-    inspect: function() {
-        return "{x:" + this.x + ",y:" + this.y + "}";
-    },
+        /**
+         * @param {Number} x coordinate
+         * @param {Number} y coordinate
+         */
+        setValue(x, y) {
+            this.x = x;
+            this.y = y;
+        }
 
-    clone: function() {
-        return new core.Point(this.x, this.y);
+        inspect() {
+            return `{x: ${this.x}, y: ${this.y}}`;
+        }
+
+        clone() {
+            return new Point(this.x, this.y);
+        }
+
+        fromString(point) {
+            let values = point.split(',');
+            return new Point(values[0], values[1]);
+        }
     }
 
+    return Point;
 });
-
-core.Point.fromString = function(point) {
-    var values = point.split(',');
-    return new core.Point(values[0], values[1]);
-};

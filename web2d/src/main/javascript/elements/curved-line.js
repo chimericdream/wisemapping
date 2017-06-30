@@ -3,23 +3,29 @@
 
 define(['assert', 'element', 'toolkit'], ($assert, Element, Toolkit) => {
     class CurvedLine extends Element {
-        constructor(attributes) {
-            this.SIMPLE_LINE = false;
-            this.NICE_LINE = true;
-
-            let peer = Toolkit.createCurvedLine();
-            let defaultAttributes = {'strokeColor': 'blue', 'strokeWidth': 1, 'strokeStyle': 'solid', 'strokeOpacity': 1};
-            for (let key in attributes) {
-                if (!attributes.hasOwnProperty(key)) {
-                    continue;
-                }
-                defaultAttributes[key] = attributes[key];
-            }
-            super(peer, defaultAttributes);
+        static get SIMPLE_LINE() {
+            return false;
         }
 
-        getType() {
+        static get NICE_LINE() {
+            return true;
+        }
+
+        static get TYPE() {
             return 'CurvedLine';
+        }
+
+        get defaults() {
+            return {
+                'strokeColor': 'blue',
+                'strokeWidth': 1,
+                'strokeStyle': 'solid',
+                'strokeOpacity': 1
+            };
+        }
+
+        constructor(params) {
+            super(Toolkit.createCurvedLine(), this._initializeAttributes(this.defaults, params));
         }
 
         setFrom(x, y) {

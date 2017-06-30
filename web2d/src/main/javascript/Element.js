@@ -91,6 +91,17 @@ define(['assert', 'is-defined'], ($assert, $defined) => {
             }
         }
 
+        _initializeAttributes(defaults, params) {
+            let attributes = defaults;
+            for (let key in params) {
+                if (!params.hasOwnProperty(key)) {
+                    continue;
+                }
+                attributes[key] = params[key];
+            }
+            return attributes;
+        }
+
         _attributeNameToFuncName(key, prefix) {
             let signature = this._propertyNameToSignature[key];
             if (!$defined(signature)) {
@@ -144,14 +155,6 @@ define(['assert', 'is-defined'], ($assert, $defined) => {
          */
         removeEvent(type, listener) {
             this._peer.removeEvent(type, listener);
-        }
-
-        /**
-         * /*
-         * Returns element type name.
-         */
-        getType() {
-            throw new Error('Not implemeneted yet. This method must be implemented by all the inherited objects.');
         }
 
         /**

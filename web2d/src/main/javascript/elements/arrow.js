@@ -3,20 +3,21 @@
 
 define(['element', 'toolkit'], (Element, Toolkit) => {
     class Arrow extends Element {
-        constructor(attributes) {
-            let peer = Toolkit.createArrow();
-            let defaultAttributes = {'strokeColor': 'black', 'strokeWidth': 1, 'strokeStyle': 'solid', 'strokeOpacity': 1};
-            for (let key in attributes) {
-                if (!attributes.hasOwnProperty(key)) {
-                    continue;
-                }
-                defaultAttributes[key] = attributes[key];
-            }
-            super(peer, defaultAttributes);
+        static get TYPE() {
+            return 'Arrow';
         }
 
-        getType() {
-            return 'Arrow';
+        get defaults() {
+            return {
+                'strokeColor': 'black',
+                'strokeWidth': 1,
+                'strokeStyle': 'solid',
+                'strokeOpacity': 1
+            };
+        }
+
+        constructor(params) {
+            super(Toolkit.createArrow(), this._initializeAttributes(this.defaults, params));
         }
 
         setFrom(x, y) {
