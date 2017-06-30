@@ -1,24 +1,7 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.commands.DragTopicCommand = new Class(/** @lends DragTopicCommand */{
-    Extends:mindplot.Command,
-    /** 
+    Extends: mindplot.Command,
+
+    /**
      * @classdesc This command class handles do/undo of dragging a topic to a new position.
      * @constructs
      * @param {String} topicId id of the topic to drag
@@ -27,23 +10,23 @@ mindplot.commands.DragTopicCommand = new Class(/** @lends DragTopicCommand */{
      * @param {mindplot.Topic} parentTopic the topic to be made the dragged topic's new parent
      * @extends mindplot.Command
      */
-    initialize:function (topicId, position, order, parentTopic) {
+    initialize: function(topicId, position, order, parentTopic) {
         $assert(topicId, "topicId must be defined");
 
         this._topicsId = topicId;
-        if ($defined(parentTopic))
+        if ($defined(parentTopic)) {
             this._parentId = parentTopic.getId();
+        }
 
         this.parent();
         this._position = position;
         this._order = order;
     },
 
-    /** 
-     * Overrides abstract parent method 
+    /**
+     * Overrides abstract parent method
      */
-    execute:function (commandContext) {
-
+    execute: function(commandContext) {
         var topic = commandContext.findTopics(this._topicsId)[0];
         topic.setVisibility(false);
 
@@ -70,7 +53,6 @@ mindplot.commands.DragTopicCommand = new Class(/** @lends DragTopicCommand */{
 
         // Finally, connect topic ...
         if (origParentTopic != this._parentId) {
-
             if ($defined(this._parentId)) {
                 var parentTopic = commandContext.findTopics(this._parentId)[0];
                 commandContext.connect(topic, parentTopic);
@@ -87,14 +69,13 @@ mindplot.commands.DragTopicCommand = new Class(/** @lends DragTopicCommand */{
         // Store for undo ...
         this._order = origOrder;
         this._position = origPosition;
-
     },
 
-    /** 
+    /**
      * Overrides abstract parent method
-     * @see {@link mindplot.Command.undoExecute} 
+     * @see {@link mindplot.Command.undoExecute}
      */
-    undoExecute:function (commandContext) {
+    undoExecute: function(commandContext) {
         this.execute(commandContext);
     }
 });

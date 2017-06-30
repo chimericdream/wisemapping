@@ -1,23 +1,5 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.widget.LinkEditor = new Class(/** @lends LinkEditor */{
-    Extends:BootstrapDialog,
+    Extends: BootstrapDialog,
 
     /**
      * @constructs
@@ -25,7 +7,7 @@ mindplot.widget.LinkEditor = new Class(/** @lends LinkEditor */{
      * @throws will throw an error if model is null or undefined
      * @extends BootstrapDialog
      */
-    initialize:function (model) {
+    initialize: function(model) {
         $assert(model, "model can not be null");
         this._model = model;
         this.parent($msg("LINK"), {
@@ -41,7 +23,7 @@ mindplot.widget.LinkEditor = new Class(/** @lends LinkEditor */{
         this.setContent(panel);
     },
 
-    _buildPanel:function (model) {
+    _buildPanel: function(model) {
         var result = $('<div></div>').css("padding-top", "5px");
         this.form = $('<form></form>').attr({
             'action': 'none',
@@ -89,7 +71,7 @@ mindplot.widget.LinkEditor = new Class(/** @lends LinkEditor */{
 
         var me = this;
         this.form.unbind('submit').submit(
-            function (event) {
+            function(event) {
                 event.preventDefault();
                 if(me.checkURL(input.val())){
                     me.cleanError();
@@ -110,8 +92,8 @@ mindplot.widget.LinkEditor = new Class(/** @lends LinkEditor */{
         return result;
     },
 
-    /** 
-     * checks whether the input is a valid url 
+    /**
+     * checks whether the input is a valid url
      * @return {Boolean} true if the url is valid
      */
     checkURL: function(url){
@@ -134,7 +116,7 @@ mindplot.widget.LinkEditor = new Class(/** @lends LinkEditor */{
 
     /**
      * overrides parent method
-     * sets the url input on focus 
+     * sets the url input on focus
      */
     onDialogShown: function() {
         $(this).find('#inputUrl').focus();
@@ -148,5 +130,4 @@ mindplot.widget.LinkEditor = new Class(/** @lends LinkEditor */{
         event.data.model.setValue(null);
         event.data.dialog.close();
     }
-
 });

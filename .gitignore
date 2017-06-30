@@ -11,3 +11,4 @@ wisemapping.log*
 target
 .idea
 phantomjsdriver.log
+MessageBundle_*

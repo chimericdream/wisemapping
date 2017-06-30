@@ -1,23 +1,5 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.RelationshipPivot = new Class({
-    initialize: function (workspace, designer) {
+    initialize: function(workspace, designer) {
         $assert(workspace, "workspace can not be null");
         $assert(designer, "designer can not be null");
         this._workspace = workspace;
@@ -27,10 +9,9 @@ mindplot.RelationshipPivot = new Class({
         this._mouseMoveEvent = this._mouseMove.bind(this);
         this._onClickEvent = this._cleanOnMouseClick.bind(this);
         this._onTopicClick = this._connectOnFocus.bind(this);
-
     },
 
-    start: function (sourceTopic, targetPos) {
+    start: function(sourceTopic, targetPos) {
         $assert(sourceTopic, "sourceTopic can not be null");
         $assert(targetPos, "targetPos can not be null");
 
@@ -66,14 +47,14 @@ mindplot.RelationshipPivot = new Class({
             // Register focus events on all topics ...
             var model = this._designer.getModel();
             var topics = model.getTopics();
-            _.each(topics, function (topic) {
+            _.each(topics, function(topic) {
                 topic.addEvent('ontfocus', this._onTopicClick);
             }.bind(this));
         }
 
     },
 
-    dispose: function () {
+    dispose: function() {
         var workspace = this._workspace;
 
         if (this._isActive()) {
@@ -83,7 +64,7 @@ mindplot.RelationshipPivot = new Class({
             var model = this._designer.getModel();
             var topics = model.getTopics();
             var me = this;
-            _.each(topics, function (topic) {
+            _.each(topics, function(topic) {
                 topic.removeEvent('ontfocus', me._onTopicClick);
             });
 
@@ -97,7 +78,7 @@ mindplot.RelationshipPivot = new Class({
         }
     },
 
-    _mouseMove: function (event) {
+    _mouseMove: function(event) {
         var screen = this._workspace.getScreenManager();
         var pos = screen.getWorkspaceMousePosition(event);
 
@@ -119,15 +100,13 @@ mindplot.RelationshipPivot = new Class({
         return false;
     },
 
-    _cleanOnMouseClick: function (event) {
-
+    _cleanOnMouseClick: function(event) {
         // The user clicks on a desktop on in other element that is not a node.
         this.dispose();
         event.stopPropagation();
     },
 
-    _calculateFromPosition: function (toPosition) {
-
+    _calculateFromPosition: function(toPosition) {
         // Calculate origin position ...
         var sourcePosition = this._sourceTopic.getPosition();
         if (this._sourceTopic.getType() == mindplot.model.INodeModel.CENTRAL_TOPIC_TYPE) {
@@ -141,7 +120,7 @@ mindplot.RelationshipPivot = new Class({
         return mindplot.util.Shape.calculateRelationShipPointCoordinates(this._sourceTopic, spoint);
     },
 
-    _connectOnFocus: function (event, targetTopic) {
+    _connectOnFocus: function(event, targetTopic) {
         var sourceTopic = this._sourceTopic;
         var mindmap = this._designer.getMindmap();
 
@@ -153,8 +132,7 @@ mindplot.RelationshipPivot = new Class({
         this.dispose();
     },
 
-    _isActive: function () {
+    _isActive: function() {
         return this._pivot != null;
     }
 });
-

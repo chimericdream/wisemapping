@@ -38,7 +38,7 @@
 		}
 	};
 
-	function keyHandler( handleObj ) {
+	functionkeyHandler( handleObj ) {
 		if ( typeof handleObj.data === "string" ) {
 			handleObj.data = { keys: handleObj.data };
 		}

@@ -1,6 +1,6 @@
-describe("Functions suite test", function() {
-    it("$defined() test spec", function() {
-        var testVariable = undefined;
+describe("Functions suite test", () => {
+    it("$defined() test spec", () => {
+        let testVariable = undefined;
         expect($defined(testVariable)).toBe(false);
         testVariable = 1;
         expect($defined(testVariable)).toBe(true);

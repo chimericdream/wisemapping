@@ -1,6 +1,5 @@
 describe("Free Test Suite", function() {
-
-    beforeEach(function () {
+    beforeEach(function() {
         this.addMatchers({
             toNotBeBranchesOverlap: function(expected) {
                 var a = this.actual;
@@ -29,7 +28,6 @@ describe("Free Test Suite", function() {
         _.each(children, function(child) {
             branchCollision(treeSet, child, heightById);
         }, this);
-
     }
 
     function branchesOverlap(branchA, branchB, heightById) {
@@ -40,8 +38,7 @@ describe("Free Test Suite", function() {
         expect([bottomA, topA]).toNotBeBranchesOverlap([bottomB,topB]);
     }
 
-    it("avoidCollisionTree1Test", function () {
-
+    it("avoidCollisionTree1Test", function() {
         var position = {x:0,y:0};
         var manager = new mindplot.layout.LayoutManager(0, TestSuite.ROOT_NODE_SIZE);
 
@@ -89,12 +86,10 @@ describe("Free Test Suite", function() {
             var heightById = rootNode.getSorter().computeChildrenIdByHeights(treeSet, rootNode);
             branchCollision(treeSet, rootNode, heightById);
         }, this);
-
     });
 
     //FIXME: This is broken in master. This configuration has two topics overlapping.
-    it("avoidCollisionTree2Test - FAILING, commented test", function () {
-
+    it("avoidCollisionTree2Test - FAILING, commented test", function() {
         var position = {x:0,y:0};
         var manager = new mindplot.layout.LayoutManager(0, TestSuite.ROOT_NODE_SIZE);
 
@@ -138,10 +133,9 @@ describe("Free Test Suite", function() {
             var heightById = rootNode.getSorter().computeChildrenIdByHeights(treeSet, rootNode);
             //FIXME: uncoment this line when bug is fixed, branchCollision(treeSet, rootNode, heightById);
         }, this);
-
     });
 
-    it("predictTest", function () {
+    it("predictTest", function() {
         var position = {x:0,y:0};
         var manager = new mindplot.layout.LayoutManager(0, TestSuite.ROOT_NODE_SIZE);
 
@@ -195,7 +189,7 @@ describe("Free Test Suite", function() {
         expect(predict4.position.y).toEqual(pos4.y);
     });
 
-    it("reconnectNodeTest", function () {
+    it("reconnectNodeTest", function() {
         var position = {x:0,y:0};
         var manager = new mindplot.layout.LayoutManager(0, TestSuite.ROOT_NODE_SIZE);
 
@@ -248,7 +242,5 @@ describe("Free Test Suite", function() {
         expect(manager.find(5).getPosition().y).toBeGreaterThan(manager.find(6).getPosition().y);
         expect(manager.find(5).getPosition().x).toEqual(manager.find(6).getPosition().x);
         expect(manager.find(5).getOrder()).toEqual(2);
-
     });
-
 });

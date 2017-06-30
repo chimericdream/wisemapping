@@ -1,40 +1,22 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.layout.EventBusDispatcher = new Class(/** @lends EventBusDispatcher */{
     /**
      * @constructs
      */
-    initialize:function() {
+    initialize: function() {
         this.registerBusEvents();
     },
 
     /**
      * @param {mindplot.layout.LayoutManager} layoutManager
      */
-    setLayoutManager : function(layoutManager) {
+    setLayoutManager: function(layoutManager) {
         this._layoutManager = layoutManager;
     },
 
     /**
      * register bus events
      */
-    registerBusEvents:function () {
+    registerBusEvents: function() {
         mindplot.EventBus.instance.addEvent(mindplot.EventBus.events.NodeAdded, this._nodeAdded.bind(this));
         mindplot.EventBus.instance.addEvent(mindplot.EventBus.events.NodeRemoved, this._nodeRemoved.bind(this));
         mindplot.EventBus.instance.addEvent(mindplot.EventBus.events.NodeResizeEvent, this._nodeResizeEvent.bind(this));
@@ -59,7 +41,6 @@ mindplot.layout.EventBusDispatcher = new Class(/** @lends EventBusDispatcher */{
 
     _nodeConnectEvent: function(args) {
         this._layoutManager.connectNode(args.parentNode.getId(), args.childNode.getId(), args.childNode.getOrder());
-
     },
 
     _nodeShrinkEvent: function(node) {
@@ -92,5 +73,4 @@ mindplot.layout.EventBusDispatcher = new Class(/** @lends EventBusDispatcher */{
     getLayoutManager: function() {
         return this._layoutManager;
     }
-
 });

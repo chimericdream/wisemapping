@@ -1,23 +1,5 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.ConnectionLine = new Class({
-    initialize:function (sourceNode, targetNode, lineType) {
+    initialize: function(sourceNode, targetNode, lineType) {
         $assert(targetNode, 'parentNode node can not be null');
         $assert(sourceNode, 'childNode node can not be null');
         $assert(sourceNode != targetNode, 'Circular connection');
@@ -44,14 +26,14 @@ mindplot.ConnectionLine = new Class({
         this._line2d = line;
     },
 
-    _getCtrlPoints:function (sourceNode, targetNode) {
+    _getCtrlPoints: function(sourceNode, targetNode) {
         var srcPos = sourceNode.workoutOutgoingConnectionPoint(targetNode.getPosition());
         var destPos = targetNode.workoutIncomingConnectionPoint(sourceNode.getPosition());
         var deltaX = (srcPos.x - destPos.x) / 3;
         return [new core.Point(deltaX, 0), new core.Point(-deltaX, 0)];
     },
 
-    _createLine:function (lineType, defaultStyle) {
+    _createLine: function(lineType, defaultStyle) {
         if (!$defined(lineType)) {
             lineType = defaultStyle;
         }
@@ -76,19 +58,19 @@ mindplot.ConnectionLine = new Class({
         return line;
     },
 
-    setVisibility:function (value) {
+    setVisibility: function(value) {
         this._line2d.setVisibility(value);
     },
 
-    isVisible:function () {
+    isVisible: function() {
         return this._line2d.isVisible();
     },
 
-    setOpacity:function (opacity) {
+    setOpacity: function(opacity) {
         this._line2d.setOpacity(opacity);
     },
 
-    redraw:function () {
+    redraw: function() {
         var line2d = this._line2d;
         var sourceTopic = this._sourceTopic;
         var sourcePosition = sourceTopic.getPosition();
@@ -111,10 +93,9 @@ mindplot.ConnectionLine = new Class({
 
         // Add connector ...
         this._positionateConnector(targetTopic);
-
     },
 
-    _positionateConnector:function (targetTopic) {
+    _positionateConnector: function(targetTopic) {
         var targetPosition = targetTopic.getPosition();
         var offset = mindplot.Topic.CONNECTOR_WIDTH / 2;
         var targetTopicSize = targetTopic.getSize();
@@ -140,61 +121,61 @@ mindplot.ConnectionLine = new Class({
 
     },
 
-    setStroke:function (color, style, opacity) {
+    setStroke: function(color, style, opacity) {
         this._line2d.setStroke(null, null, color, opacity);
     },
 
-    addToWorkspace:function (workspace) {
+    addToWorkspace: function(workspace) {
         workspace.append(this._line2d);
         this._line2d.moveToBack();
     },
 
-    removeFromWorkspace:function (workspace) {
+    removeFromWorkspace: function(workspace) {
         workspace.removeChild(this._line2d);
     },
 
-    getTargetTopic:function () {
+    getTargetTopic: function() {
         return this._targetTopic;
     },
 
-    getSourceTopic:function () {
+    getSourceTopic: function() {
         return this._sourceTopic;
     },
 
-    getLineType:function () {
+    getLineType: function() {
         return this._lineType;
     },
 
-    getLine:function () {
+    getLine: function() {
         return this._line2d;
     },
 
-    getModel:function () {
+    getModel: function() {
         return this._model;
     },
 
-    setModel:function (model) {
+    setModel: function(model) {
         this._model = model;
     },
 
-    getType:function () {
+    getType: function() {
         return "ConnectionLine";
     },
 
-    getId:function () {
+    getId: function() {
         return this._model.getId();
     },
 
-    moveToBack:function () {
+    moveToBack: function() {
         this._line2d.moveToBack();
     },
 
-    moveToFront:function () {
+    moveToFront: function() {
         this._line2d.moveToFront();
     }
 });
 
-mindplot.ConnectionLine.getStrokeColor = function () {
+mindplot.ConnectionLine.getStrokeColor = function() {
     return '#495879';
 };
 

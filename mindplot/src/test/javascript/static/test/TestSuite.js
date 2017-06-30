@@ -18,7 +18,7 @@
 mindplot.layout.TestSuite = new Class({
     Extends: mindplot.layout.ChildrenSorterStrategy,
 
-    initialize:function() {
+    initialize: function() {
         $('#basicTest').setStyle("display","block");
 
 //        this.testAligned();

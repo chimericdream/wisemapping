@@ -1,37 +1,19 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.widget.Menu = new Class({
     Extends: mindplot.widget.IMenu,
 
-    initialize: function (designer, containerId, mapId, readOnly, baseUrl) {
+    initialize: function(designer, containerId, mapId, readOnly, baseUrl) {
         this.parent(designer, containerId, mapId);
 
         baseUrl = !$defined(baseUrl) ? "" : baseUrl;
         var widgetsBaseUrl = baseUrl + "css/widget";
 
         // Stop event propagation ...
-        $('#'+this._containerId).bind('click', function (event) {
+        $('#'+this._containerId).bind('click', function(event) {
             event.stopPropagation();
             return false;
         });
 
-        $("#" + this._containerId).bind('dblclick', function (event) {
+        $("#" + this._containerId).bind('dblclick', function(event) {
             event.stopPropagation();
             return false;
         });
@@ -42,7 +24,7 @@ mindplot.widget.Menu = new Class({
         var fontFamilyBtn = $('#fontFamily');
         if (fontFamilyBtn) {
             var fontFamilyModel = {
-                getValue: function () {
+                getValue: function() {
                     var nodes = designerModel.filterSelectedTopics();
                     var result = null;
                     for (var i = 0; i < nodes.length; i++) {
@@ -56,9 +38,8 @@ mindplot.widget.Menu = new Class({
                     return result;
                 },
 
-                setValue: function (value) {
+                setValue: function(value) {
                     designer.changeFontFamily(value);
-
                 }
             };
             this._toolbarElems.push(new mindplot.widget.FontFamilyPanel("fontFamily", fontFamilyModel));
@@ -68,7 +49,7 @@ mindplot.widget.Menu = new Class({
         var fontSizeBtn = $('#fontSize');
         if (fontSizeBtn) {
             var fontSizeModel = {
-                getValue: function () {
+                getValue: function() {
                     var nodes = designerModel.filterSelectedTopics();
                     var result = null;
                     for (var i = 0; i < nodes.length; i++) {
@@ -81,7 +62,7 @@ mindplot.widget.Menu = new Class({
                     }
                     return result;
                 },
-                setValue: function (value) {
+                setValue: function(value) {
                     designer.changeFontSize(value);
                 }
             };
@@ -92,7 +73,7 @@ mindplot.widget.Menu = new Class({
         var topicShapeBtn = $('#topicShape');
         if (topicShapeBtn) {
             var topicShapeModel = {
-                getValue: function () {
+                getValue: function() {
                     var nodes = designerModel.filterSelectedTopics();
                     var result = null;
                     for (var i = 0; i < nodes.length; i++) {
@@ -105,7 +86,7 @@ mindplot.widget.Menu = new Class({
                     }
                     return result;
                 },
-                setValue: function (value) {
+                setValue: function(value) {
                     designer.changeTopicShape(value);
                 }
             };
@@ -117,10 +98,10 @@ mindplot.widget.Menu = new Class({
         if (topicIconBtn) {
             // Create icon panel dialog ...
             var topicIconModel = {
-                getValue: function () {
+                getValue: function() {
                     return null;
                 },
-                setValue: function (value) {
+                setValue: function(value) {
                     designer.addIconType(value);
                 }
             };
@@ -131,9 +112,8 @@ mindplot.widget.Menu = new Class({
         // Topic color item ...
         var topicColorBtn = $('#topicColor');
         if (topicColorBtn) {
-
             var topicColorModel = {
-                getValue: function () {
+                getValue: function() {
                     var nodes = designerModel.filterSelectedTopics();
                     var result = null;
                     for (var i = 0; i < nodes.length; i++) {
@@ -146,7 +126,7 @@ mindplot.widget.Menu = new Class({
                     }
                     return result;
                 },
-                setValue: function (hex) {
+                setValue: function(hex) {
                     designer.changeBackgroundColor(hex);
                 }
             };
@@ -157,9 +137,8 @@ mindplot.widget.Menu = new Class({
         // Border color item ...
         var topicBorderBtn = $('#topicBorder');
         if (topicBorderBtn) {
-            var borderColorModel =
-            {
-                getValue: function () {
+            var borderColorModel = {
+                getValue: function() {
                     var nodes = designerModel.filterSelectedTopics();
                     var result = null;
                     for (var i = 0; i < nodes.length; i++) {
@@ -172,7 +151,7 @@ mindplot.widget.Menu = new Class({
                     }
                     return result;
                 },
-                setValue: function (hex) {
+                setValue: function(hex) {
                     designer.changeBorderColor(hex);
                 }
             };
@@ -183,9 +162,8 @@ mindplot.widget.Menu = new Class({
         // Font color item ...
         var fontColorBtn = $('#fontColor');
         if (fontColorBtn) {
-            var fontColorModel =
-            {
-                getValue: function () {
+            var fontColorModel = {
+                getValue: function() {
                     var result = null;
                     var nodes = designerModel.filterSelectedTopics();
                     for (var i = 0; i < nodes.length; i++) {
@@ -198,7 +176,7 @@ mindplot.widget.Menu = new Class({
                     }
                     return result;
                 },
-                setValue: function (hex) {
+                setValue: function(hex) {
                     designer.changeFontColor(hex);
                 }
             };
@@ -206,7 +184,7 @@ mindplot.widget.Menu = new Class({
             this._registerTooltip('fontColor', $msg('FONT_COLOR'));
         }
 
-        this._addButton('export', false, false, function () {
+        this._addButton('export', false, false, function() {
             BootstrapDialog.Request.active = new BootstrapDialog.Request('c/maps/' + mapId + "/exportf", $msg('EXPORT'), {
                 cancelButton: true,
                 closeButton: true
@@ -216,7 +194,7 @@ mindplot.widget.Menu = new Class({
 
         var me = this;
 
-        this._addButton('print', false, false, function () {
+        this._addButton('print', false, false, function() {
             me.save(saveElem, designer, false);
             var baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf("c/maps/"));
             window.open(baseUrl + 'c/maps/' + mapId + '/print');
@@ -224,18 +202,17 @@ mindplot.widget.Menu = new Class({
 
         this._registerTooltip('print', $msg('PRINT'));
 
-        this._addButton('zoomIn', false, false, function () {
+        this._addButton('zoomIn', false, false, function() {
             designer.zoomIn();
         });
         this._registerTooltip('zoomIn', $msg('ZOOM_IN'));
 
-        this._addButton('zoomOut', false, false, function () {
+        this._addButton('zoomOut', false, false, function() {
             designer.zoomOut();
         });
         this._registerTooltip('zoomOut', $msg('ZOOM_OUT'));
 
-
-        var undoButton = this._addButton('undoEdition', false, false, function () {
+        var undoButton = this._addButton('undoEdition', false, false, function() {
             designer.undo();
         });
         if (undoButton) {
@@ -243,8 +220,7 @@ mindplot.widget.Menu = new Class({
         }
         this._registerTooltip('undoEdition', $msg('UNDO'), "meta+Z");
 
-
-        var redoButton = this._addButton('redoEdition', false, false, function () {
+        var redoButton = this._addButton('redoEdition', false, false, function() {
             designer.redo();
         });
         if (redoButton) {
@@ -253,7 +229,7 @@ mindplot.widget.Menu = new Class({
         this._registerTooltip('redoEdition', $msg('REDO'), "meta+shift+Z");
 
         if (redoButton && undoButton) {
-            designer.addEvent('modelUpdate', function (event) {
+            designer.addEvent('modelUpdate', function(event) {
                 if (event.undoSteps > 0) {
                     undoButton.enable();
                 } else {
@@ -268,43 +244,37 @@ mindplot.widget.Menu = new Class({
             });
         }
 
-        this._addButton('addTopic', true, false, function () {
+        this._addButton('addTopic', true, false, function() {
             designer.createSiblingForSelectedNode();
         });
         this._registerTooltip('addTopic', $msg('ADD_TOPIC'), "Enter");
 
-
-        this._addButton('deleteTopic', true, true, function () {
+        this._addButton('deleteTopic', true, true, function() {
             designer.deleteSelectedEntities();
         });
         this._registerTooltip('deleteTopic', $msg('TOPIC_DELETE'), "Delete");
 
-
-        this._addButton('topicLink', true, false, function () {
+        this._addButton('topicLink', true, false, function() {
             designer.addLink();
         });
         this._registerTooltip('topicLink', $msg('TOPIC_LINK'));
 
-
-        this._addButton('topicRelation', true, false, function (event) {
+        this._addButton('topicRelation', true, false, function(event) {
             designer.showRelPivot(event);
         });
         this._registerTooltip('topicRelation', $msg('TOPIC_RELATIONSHIP'));
 
-
-        this._addButton('topicNote', true, false, function () {
+        this._addButton('topicNote', true, false, function() {
             designer.addNote();
         });
         this._registerTooltip('topicNote', $msg('TOPIC_NOTE'));
 
-
-        this._addButton('fontBold', true, false, function () {
+        this._addButton('fontBold', true, false, function() {
             designer.changeFontWeight();
         });
         this._registerTooltip('fontBold', $msg('FONT_BOLD'), "meta+B");
 
-
-        this._addButton('fontItalic', true, false, function () {
+        this._addButton('fontItalic', true, false, function() {
             designer.changeFontStyle();
         });
         this._registerTooltip('fontItalic', $msg('FONT_ITALIC'), "meta+I");
@@ -312,16 +282,15 @@ mindplot.widget.Menu = new Class({
         var saveElem = $('#save');
         if (saveElem) {
             this._addButton('save', false, false,
-                function () {
+                function() {
                     me.save(saveElem, designer, true);
                 });
             this._registerTooltip('save', $msg('SAVE'), "meta+S");
 
-
             if (!readOnly) {
                 // To prevent the user from leaving the page with changes ...
 //                Element.NativeEvents.unload = 1;
-                $(window).bind('unload', function () {
+                $(window).bind('unload', function() {
                     if (me.isSaveRequired()) {
                         me.save(saveElem, designer, false, true);
                     }
@@ -340,7 +309,7 @@ mindplot.widget.Menu = new Class({
 
         var discardElem = $('#discard');
         if (discardElem) {
-            this._addButton('discard', false, false, function () {
+            this._addButton('discard', false, false, function() {
                 me.discardChanges(designer);
             });
             this._registerTooltip('discard', $msg('DISCARD_CHANGES'));
@@ -348,7 +317,7 @@ mindplot.widget.Menu = new Class({
 
         var shareElem = $('#shareIt');
         if (shareElem) {
-            this._addButton('shareIt', false, false, function () {
+            this._addButton('shareIt', false, false, function() {
                 BootstrapDialog.Request.active = new BootstrapDialog.Request('c/maps/' + mapId + "/sharef", $msg('COLLABORATE'), {
                         closeButton: true,
                         cancelButton: true
@@ -356,12 +325,11 @@ mindplot.widget.Menu = new Class({
                 designer.onObjectFocusEvent();
             });
             this._registerTooltip('shareIt', $msg('COLLABORATE'));
-
         }
 
         var publishElem = $('#publishIt');
         if (publishElem) {
-            this._addButton('publishIt', false, false, function () {
+            this._addButton('publishIt', false, false, function() {
                 BootstrapDialog.Request.active = new BootstrapDialog.Request('c/maps/' + mapId + "/publishf", $msg('PUBLISH'), {
                         closeButton: true,
                         cancelButton: true
@@ -373,8 +341,7 @@ mindplot.widget.Menu = new Class({
 
         var historyElem = $('#history');
         if (historyElem) {
-
-            this._addButton('history', false, false, function () {
+            this._addButton('history', false, false, function() {
                 BootstrapDialog.Request.active = new BootstrapDialog.Request('c/maps/' + mapId + "/historyf", $msg('HISTORY'), {
                     closeButton: true,
                     cancelButton: true
@@ -389,8 +356,7 @@ mindplot.widget.Menu = new Class({
         // Keyboard Shortcuts Action ...
         var keyboardShortcut = $('#keyboardShortcuts');
         if (keyboardShortcut) {
-
-            keyboardShortcut.bind('click', function (event) {
+            keyboardShortcut.bind('click', function(event) {
                 BootstrapDialog.Request.active = new BootstrapDialog.Request('c/keyboard', $msg('SHORTCUTS'), {
                     closeButton: true,
                     cancelButton: true
@@ -400,7 +366,6 @@ mindplot.widget.Menu = new Class({
             });
         }
 
-
         var videoElem = $('#tutorialVideo');
         if (videoElem) {
             var width = 900;
@@ -408,28 +373,27 @@ mindplot.widget.Menu = new Class({
             var left = (screen.width / 2) - (width / 2);
             var top = (screen.height / 2) - (height / 2);
 
-            videoElem.bind('click', function (event) {
+            videoElem.bind('click', function(event) {
                 window.open("https://www.youtube.com/tv?vq=medium#/watch?v=rKxZwNKs9cE", "_blank", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, copyhistory=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
                 event.preventDefault();
             });
         }
-
     },
 
-    _registerEvents: function (designer) {
+    _registerEvents: function(designer) {
         var me = this;
         // Register on close events ...
-        _.each(this._toolbarElems, function (elem) {
-            elem.addEvent('show', function () {
+        _.each(this._toolbarElems, function(elem) {
+            elem.addEvent('show', function() {
                 me.clear()
             });
         });
 
-        designer.addEvent('onblur', function () {
+        designer.addEvent('onblur', function() {
             var topics = designer.getModel().filterSelectedTopics();
             var rels = designer.getModel().filterSelectedRelationships();
 
-            _.each(me._toolbarElems, function (button) {
+            _.each(me._toolbarElems, function(button) {
                 var isTopicAction = button.isTopicAction();
                 var isRelAction = button.isRelAction();
 
@@ -443,16 +407,15 @@ mindplot.widget.Menu = new Class({
             })
         });
 
-        designer.addEvent('onfocus', function () {
+        designer.addEvent('onfocus', function() {
             var topics = designer.getModel().filterSelectedTopics();
             var rels = designer.getModel().filterSelectedRelationships();
 
-            _.each(me._toolbarElems, function (button) {
+            _.each(me._toolbarElems, function(button) {
                 var isTopicAction = button.isTopicAction();
                 var isRelAction = button.isRelAction();
 
                 if (isTopicAction || isRelAction) {
-
                     if (isTopicAction && topics.length > 0) {
                         button.enable();
                     }
@@ -465,13 +428,12 @@ mindplot.widget.Menu = new Class({
         });
     },
 
-    _addButton: function (buttonId, topic, rel, fn) {
+    _addButton: function(buttonId, topic, rel, fn) {
         var me = this;
         // Register Events ...
         var result = null;
         if ($('#'+buttonId)) {
-
-            var button = new mindplot.widget.ToolbarItem(buttonId, function (event) {
+            var button = new mindplot.widget.ToolbarItem(buttonId, function(event) {
                 fn(event);
                 me.clear();
             }, {topicAction: topic, relAction: rel});
@@ -482,7 +444,7 @@ mindplot.widget.Menu = new Class({
         return result;
     },
 
-    _registerTooltip: function (buttonId, text, shortcut) {
+    _registerTooltip: function(buttonId, text, shortcut) {
         if ($('#'+buttonId)) {
             var tooltip = text;
             if (shortcut) {

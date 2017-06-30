@@ -1,6 +1,4 @@
-
 describe("Symmetric Test Suite", function() {
-
     it("symmetricTest", function() {
         var position = {x:0,y:0};
         var manager = new mindplot.layout.LayoutManager(0, TestSuite.ROOT_NODE_SIZE);
@@ -42,7 +40,6 @@ describe("Symmetric Test Suite", function() {
         expect(manager.find(11).getPosition().y - manager.find(6).getPosition().y).toEqual(-(manager.find(12).getPosition().y - manager.find(6).getPosition().y));
         expect(manager.find(8).getPosition().y - manager.find(1).getPosition().y).toEqual(-(manager.find(11).getPosition().y - manager.find(1).getPosition().y));
         expect(manager.find(9).getPosition().y - manager.find(1).getPosition().y).toEqual(-(manager.find(11).getPosition().y - manager.find(1).getPosition().y));
-
     });
 
     it("symmetricDragPredictTest", function() {
@@ -77,5 +74,4 @@ describe("Symmetric Test Suite", function() {
         expect(prediction1e.position.y).toEqual(manager.find(2).getPosition().y);
         expect(prediction1e.order).toEqual(manager.find(2).getOrder());
     });
-
 });

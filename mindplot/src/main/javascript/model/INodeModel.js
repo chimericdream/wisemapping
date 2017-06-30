@@ -1,21 +1,3 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.model.INodeModel = new Class(/** @lends INodeModel */{
     /**
      * @constructs
@@ -27,12 +9,12 @@ mindplot.model.INodeModel = new Class(/** @lends INodeModel */{
     },
 
     /** */
-    getId  : function() {
+    getId: function() {
         return this.getProperty('id');
     },
 
     /** */
-    setId  : function(id) {
+    setId: function(id) {
         if ($defined(id) && id > mindplot.model.INodeModel._uuid) {
             mindplot.model.INodeModel._uuid = id;
         }
@@ -41,38 +23,37 @@ mindplot.model.INodeModel = new Class(/** @lends INodeModel */{
         }
 
         this.putProperty('id', id);
-
     },
 
     /** */
-    getType  : function() {
+    getType: function() {
         return this.getProperty('type');
     },
 
     /** */
-    setType  : function(type) {
+    setType: function(type) {
         this.putProperty('type', type);
     },
 
     /** */
-    setText  : function(text) {
+    setText: function(text) {
         this.putProperty('text', text);
     },
 
     /** */
-    getText  : function() {
+    getText: function() {
         return this.getProperty('text');
     },
 
     /** */
-    setPosition  : function(x, y) {
+    setPosition: function(x, y) {
         $assert(!isNaN(parseInt(x)), "x position is not valid:" + x);
         $assert(!isNaN(parseInt(y)), "y position is not valid:" + y);
         this.putProperty('position', '{x:' + parseInt(x) + ',y:' + parseInt(y) + '}');
     },
 
     /** */
-    getPosition  : function() {
+    getPosition: function() {
         var value = this.getProperty('position');
         var result = null;
         if (value != null) {
@@ -82,12 +63,12 @@ mindplot.model.INodeModel = new Class(/** @lends INodeModel */{
     },
 
     /** */
-    setImageSize  : function(width, height) {
+    setImageSize: function(width, height) {
         this.putProperty('imageSize', '{width:' + width + ',height:' + height + '}');
     },
 
     /** */
-    getImageSize  : function() {
+    getImageSize: function() {
         var value = this.getProperty('imageSize');
         var result = null;
         if (value != null) {
@@ -97,29 +78,27 @@ mindplot.model.INodeModel = new Class(/** @lends INodeModel */{
     },
 
     /** */
-    setImageUrl:function(url) {
+    setImageUrl: function(url) {
         this.putProperty('imageUrl', url);
-
     },
 
     /** */
-    getMetadata:function() {
+    getMetadata: function() {
         return this.getProperty('metadata');
     },
 
     /** */
-    setMetadata:function(json) {
+    setMetadata: function(json) {
         this.putProperty('metadata', json);
-
     },
 
     /** */
-    getImageUrl:function() {
+    getImageUrl: function() {
         return this.getProperty('imageUrl');
     },
 
     /** */
-    getMindmap  : function() {
+    getMindmap: function() {
         return this._mindmap;
     },
 
@@ -127,131 +106,131 @@ mindplot.model.INodeModel = new Class(/** @lends INodeModel */{
      * lets the mindmap handle the disconnect node operation
      * @see mindplot.model.IMindmap.disconnect
      */
-    disconnect  : function() {
+    disconnect: function() {
         var mindmap = this.getMindmap();
         mindmap.disconnect(this);
     },
 
     /** */
-    getShapeType  : function() {
+    getShapeType: function() {
         return this.getProperty('shapeType');
     },
 
     /** */
-    setShapeType  : function(type) {
+    setShapeType: function(type) {
         this.putProperty('shapeType', type);
     },
 
     /** */
-    setOrder  : function(value) {
+    setOrder: function(value) {
         $assert(typeof value === 'number' && isFinite(value) || value == null, "Order must be null or a number");
         this.putProperty('order', value);
     },
 
     /** */
-    getOrder  : function() {
+    getOrder: function() {
         return this.getProperty('order');
     },
 
     /** */
-    setFontFamily  : function(fontFamily) {
+    setFontFamily: function(fontFamily) {
         this.putProperty('fontFamily', fontFamily);
     },
 
     /** */
-    getFontFamily  : function() {
+    getFontFamily: function() {
         return this.getProperty('fontFamily');
     },
 
     /** */
-    setFontStyle  : function(fontStyle) {
+    setFontStyle: function(fontStyle) {
         this.putProperty('fontStyle', fontStyle);
     },
 
     /** */
-    getFontStyle  : function() {
+    getFontStyle: function() {
         return this.getProperty('fontStyle');
     },
 
     /** */
-    setFontWeight  : function(weight) {
+    setFontWeight: function(weight) {
         this.putProperty('fontWeight', weight);
     },
 
     /** */
-    getFontWeight  : function() {
+    getFontWeight: function() {
         return this.getProperty('fontWeight');
     },
 
     /** */
-    setFontColor  : function(color) {
+    setFontColor: function(color) {
         this.putProperty('fontColor', color);
     },
 
     /** */
-    getFontColor  : function() {
+    getFontColor: function() {
         return this.getProperty('fontColor');
     },
 
     /** */
-    setFontSize  : function(size) {
+    setFontSize: function(size) {
         this.putProperty('fontSize', size);
     },
 
     /** */
-    getFontSize  : function() {
+    getFontSize: function() {
         return this.getProperty('fontSize');
     },
 
     /** */
-    getBorderColor  : function() {
+    getBorderColor: function() {
         return this.getProperty('borderColor');
     },
 
     /** */
-    setBorderColor  : function(color) {
+    setBorderColor: function(color) {
         this.putProperty('borderColor', color);
     },
 
     /** */
-    getBackgroundColor  : function() {
+    getBackgroundColor: function() {
         return this.getProperty('backgroundColor');
     },
 
     /** */
-    setBackgroundColor  : function(color) {
+    setBackgroundColor: function(color) {
         this.putProperty('backgroundColor', color);
     },
 
     /** */
-    areChildrenShrunken  : function() {
+    areChildrenShrunken: function() {
         var result = this.getProperty('shrunken');
-        return $defined(result) ? result : false;
+        return $defined(result) ? result: false;
     },
 
     /**
      * @return {Boolean} true if the children nodes are hidden by the shrink option
      */
-    setChildrenShrunken  : function(value) {
+    setChildrenShrunken: function(value) {
         this.putProperty('shrunken', value);
     },
 
     /**
      * @return {Boolean} true
      */
-    isNodeModel  : function() {
+    isNodeModel: function() {
         return true;
     },
 
     /**
      * @return {Boolean} true if the node model has a parent assigned to it
      */
-    isConnected  : function() {
+    isConnected: function() {
         return this.getParent() != null;
     },
 
     /** @abstract */
-    append : function(node) {
+    append: function(node) {
         throw "Unsupported operation";
     },
 
@@ -260,7 +239,7 @@ mindplot.model.INodeModel = new Class(/** @lends INodeModel */{
      * @throws will throw an error if parent is null or undefined
      * @see mindplot.model.IMindmap.connect
      */
-    connectTo  : function(parent) {
+    connectTo: function(parent) {
         $assert(parent, "parent can not be null");
         var mindmap = this.getMindmap();
         mindmap.connect(parent, this);
@@ -270,7 +249,7 @@ mindplot.model.INodeModel = new Class(/** @lends INodeModel */{
      * @param target
      * @return target
      */
-    copyTo : function(target) {
+    copyTo: function(target) {
         var source = this;
         // Copy properties ...
         var keys = source.getPropertiesKeys();
@@ -293,10 +272,10 @@ mindplot.model.INodeModel = new Class(/** @lends INodeModel */{
     },
 
     /**
-     * lets parent handle the delete node operation, or, if none defined, calls the mindmap to 
+     * lets parent handle the delete node operation, or, if none defined, calls the mindmap to
      * remove the respective branch
      */
-    deleteNode  : function() {
+    deleteNode: function() {
         var mindmap = this.getMindmap();
 
 //        console.log("Before:" + mindmap.inspect());
@@ -312,7 +291,7 @@ mindplot.model.INodeModel = new Class(/** @lends INodeModel */{
     },
 
     /** @abstract */
-    getPropertiesKeys : function() {
+    getPropertiesKeys: function() {
         throw "Unsupported operation";
     },
 
@@ -322,27 +301,27 @@ mindplot.model.INodeModel = new Class(/** @lends INodeModel */{
     },
 
     /** @abstract */
-    setParent  : function(parent) {
+    setParent: function(parent) {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    getChildren  : function() {
+    getChildren: function() {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    getParent  : function() {
+    getParent: function() {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    clone  : function() {
+    clone: function() {
         throw "Unsupported operation";
     },
 
     /** */
-    inspect  : function() {
+    inspect: function() {
         var result = '{ type: ' + this.getType() +
             ' , id: ' + this.getId() +
             ' , text: ' + this.getText();
@@ -366,22 +345,20 @@ mindplot.model.INodeModel = new Class(/** @lends INodeModel */{
     },
 
     /** @abstract */
-    removeChild : function(child) {
+    removeChild: function(child) {
         throw "Unsupported operation";
-
     }
 });
 
 /**
  * @enum {String}
  */
-mindplot.model.TopicShape =
-{
-    RECTANGLE : 'rectagle',
-    ROUNDED_RECT :  'rounded rectagle',
-    ELLIPSE : 'elipse',
-    LINE : 'line',
-    IMAGE : 'image'
+mindplot.model.TopicShape = {
+    RECTANGLE: 'rectagle',
+    ROUNDED_RECT:  'rounded rectagle',
+    ELLIPSE: 'elipse',
+    LINE: 'line',
+    IMAGE: 'image'
 };
 
 /**
@@ -390,6 +367,7 @@ mindplot.model.TopicShape =
  * @default
  */
 mindplot.model.INodeModel.CENTRAL_TOPIC_TYPE = 'CentralTopic';
+
 /**
  * @constant
  * @type {String}
@@ -416,4 +394,3 @@ mindplot.model.INodeModel._nextUUID = function() {
     return mindplot.model.INodeModel._uuid;
 };
 mindplot.model.INodeModel._uuid = 0;
-

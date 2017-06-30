@@ -1,82 +1,64 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.model.IMindmap = new Class(/** @lends IMindmap */{
     /**
      * @constructs
      * @abstract
      */
-    initialize : function() {
+    initialize: function() {
         throw "Unsupported operation";
     },
 
     /** */
-    getCentralTopic : function() {
+    getCentralTopic: function() {
         return this.getBranches()[0];
     },
 
     /** @abstract */
-    getDescription : function() {
+    getDescription: function() {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    setDescription : function(value) {
+    setDescription: function(value) {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    getId : function() {
+    getId: function() {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    setId : function(id) {
+    setId: function(id) {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    getVersion : function() {
+    getVersion: function() {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    setVersion : function(version) {
+    setVersion: function(version) {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    addBranch : function(nodeModel) {
+    addBranch: function(nodeModel) {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    getBranches : function() {
+    getBranches: function() {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    removeBranch : function(node) {
+    removeBranch: function(node) {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    getRelationships : function() {
+    getRelationships: function() {
         throw "Unsupported operation";
     },
 
@@ -85,7 +67,7 @@ mindplot.model.IMindmap = new Class(/** @lends IMindmap */{
      * @param child
      * @throws will throw an error if child already has a connection to a parent node
      */
-    connect : function(parent, child) {
+    connect: function(parent, child) {
         // Child already has a parent ?
         $assert(!child.getParent(), 'Child model seems to be already connected');
 
@@ -101,7 +83,7 @@ mindplot.model.IMindmap = new Class(/** @lends IMindmap */{
      * @throws will throw an error if child is null or undefined
      * @throws will throw an error if child's parent cannot be found
      */
-    disconnect : function(child) {
+    disconnect: function(child) {
         var parent = child.getParent();
         $assert(child, 'Child can not be null.');
         $assert(parent, 'Child model seems to be already connected');
@@ -111,32 +93,32 @@ mindplot.model.IMindmap = new Class(/** @lends IMindmap */{
     },
 
     /** @abstract */
-    hasAlreadyAdded : function(node) {
+    hasAlreadyAdded: function(node) {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    createNode : function(type, id) {
+    createNode: function(type, id) {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    createRelationship : function(fromNode, toNode) {
+    createRelationship: function(fromNode, toNode) {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    addRelationship : function(rel) {
+    addRelationship: function(rel) {
         throw "Unsupported operation";
     },
 
     /** @abstract */
-    deleteRelationship : function(relationship) {
+    deleteRelationship: function(relationship) {
         throw "Unsupported operation";
     },
 
     /** */
-    inspect : function() {
+    inspect: function() {
         var result = '';
         result = '{ ';
 
@@ -160,7 +142,7 @@ mindplot.model.IMindmap = new Class(/** @lends IMindmap */{
     /**
      * @param target
      */
-    copyTo : function(target) {
+    copyTo: function(target) {
         var source = this;
         var version = source.getVersion();
         target.setVersion(version);

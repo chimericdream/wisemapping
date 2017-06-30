@@ -1,21 +1,3 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.NodeGraph = new Class(/** @lends NodeGraph */{
     /**
      * @constructs
@@ -23,7 +5,7 @@ mindplot.NodeGraph = new Class(/** @lends NodeGraph */{
      * @param {Object<Number, String, Boolean>} options
      * @throws will throw an error if nodeModel is null or undefined
      */
-    initialize: function (nodeModel, options) {
+    initialize: function(nodeModel, options) {
         $assert(nodeModel, "model can not be null");
 
         this._options = options;
@@ -34,12 +16,12 @@ mindplot.NodeGraph = new Class(/** @lends NodeGraph */{
     },
 
     /** @return true if option is set to read-only */
-    isReadOnly: function () {
+    isReadOnly: function() {
         return this._options.readOnly;
     },
 
     /** @return model type */
-    getType: function () {
+    getType: function() {
         var model = this.getModel();
         return model.getType();
     },
@@ -48,12 +30,12 @@ mindplot.NodeGraph = new Class(/** @lends NodeGraph */{
      * @param {String} id
      * @throws will throw an error if the topic id is not a number
      */
-    setId: function (id) {
+    setId: function(id) {
         $assert(typeof  topic.getId() == "number", "id is not a number:" + id);
         this.getModel().setId(id);
     },
 
-    _set2DElement: function (elem2d) {
+    _set2DElement: function(elem2d) {
         this._elem2d = elem2d;
     },
 
@@ -61,51 +43,51 @@ mindplot.NodeGraph = new Class(/** @lends NodeGraph */{
      * @return 2D element
      * @throws will throw an error if the element is null or undefined within node graph
      */
-    get2DElement: function () {
+    get2DElement: function() {
         $assert(this._elem2d, 'NodeGraph has not been initialized properly');
         return this._elem2d;
     },
 
     /** @abstract */
-    setPosition: function (point, fireEvent) {
+    setPosition: function(point, fireEvent) {
         throw "Unsupported operation";
     },
 
     /** */
-    addEvent: function (type, listener) {
+    addEvent: function(type, listener) {
         var elem = this.get2DElement();
         elem.addEvent(type, listener);
     },
 
     /** */
-    removeEvent: function (type, listener) {
+    removeEvent: function(type, listener) {
         var elem = this.get2DElement();
         elem.removeEvent(type, listener);
     },
 
     /** */
-    fireEvent: function (type, event) {
+    fireEvent: function(type, event) {
         var elem = this.get2DElement();
         elem.trigger(type, event);
     },
 
     /** */
-    setMouseEventsEnabled: function (isEnabled) {
+    setMouseEventsEnabled: function(isEnabled) {
         this._mouseEvents = isEnabled;
     },
 
     /** */
-    isMouseEventsEnabled: function () {
+    isMouseEventsEnabled: function() {
         return this._mouseEvents;
     },
 
     /** @return {Object<Number>} size*/
-    getSize: function () {
+    getSize: function() {
         return this._size;
     },
 
     /** @param {Object<Number>} size*/
-    setSize: function (size) {
+    setSize: function(size) {
         this._size.width = parseInt(size.width);
         this._size.height = parseInt(size.height);
     },
@@ -113,7 +95,7 @@ mindplot.NodeGraph = new Class(/** @lends NodeGraph */{
     /**
      * @return {mindplot.model.NodeModel} the node model
      */
-    getModel: function () {
+    getModel: function() {
         $assert(this._model, 'Model has not been initialized yet');
         return this._model;
     },
@@ -122,26 +104,24 @@ mindplot.NodeGraph = new Class(/** @lends NodeGraph */{
      * @param {mindplot.NodeModel} model the node model
      * @throws will throw an error if model is null or undefined
      */
-    setModel: function (model) {
+    setModel: function(model) {
         $assert(model, 'Model can not be null');
         this._model = model;
     },
 
     /** */
-    getId: function () {
+    getId: function() {
         return this._model.getId();
     },
 
     /** */
-    setOnFocus: function (focus) {
+    setOnFocus: function(focus) {
         if (this._onFocus != focus) {
-
             this._onFocus = focus;
             var outerShape = this.getOuterShape();
             if (focus) {
                 outerShape.setFill(mindplot.Topic.OUTER_SHAPE_ATTRIBUTES_FOCUS.fillColor);
                 outerShape.setOpacity(1);
-
             } else {
                 outerShape.setFill(mindplot.Topic.OUTER_SHAPE_ATTRIBUTES.fillColor);
                 outerShape.setOpacity(0);
@@ -153,33 +133,32 @@ mindplot.NodeGraph = new Class(/** @lends NodeGraph */{
 
             // Fire event ...
             this.fireEvent(focus ? 'ontfocus' : 'ontblur', this);
-
         }
     },
 
     /** @return {Boolean} true if the node graph is on focus */
-    isOnFocus: function () {
+    isOnFocus: function() {
         return this._onFocus;
     },
 
     /** */
-    dispose: function (workspace) {
+    dispose: function(workspace) {
         this.setOnFocus(false);
         workspace.removeChild(this);
     },
 
     /** */
-    createDragNode: function (layoutManager) {
+    createDragNode: function(layoutManager) {
         var dragShape = this._buildDragShape();
         return new mindplot.DragTopic(dragShape, this, layoutManager);
     },
 
-    _buildDragShape: function () {
+    _buildDragShape: function() {
         $assert(false, '_buildDragShape must be implemented by all nodes.');
     },
 
     /** */
-    getPosition: function () {
+    getPosition: function() {
         var model = this.getModel();
         return model.getPosition();
     }
@@ -196,7 +175,7 @@ mindplot.NodeGraph = new Class(/** @lends NodeGraph */{
  * topic type
  * @return {mindplot.CentralTopic|mindplot.MainTopic} the new topic
  */
-mindplot.NodeGraph.create = function (nodeModel, options) {
+mindplot.NodeGraph.create = function(nodeModel, options) {
     $assert(nodeModel, 'Model can not be null');
 
     var type = nodeModel.getType();

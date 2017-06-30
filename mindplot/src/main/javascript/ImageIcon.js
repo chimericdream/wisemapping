@@ -1,24 +1,7 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.ImageIcon = new Class({
     Extends: mindplot.Icon,
-    initialize: function (topic, iconModel, readOnly) {
+
+    initialize: function(topic, iconModel, readOnly) {
         $assert(iconModel, 'iconModel can not be null');
         $assert(topic, 'topic can not be null');
 
@@ -35,7 +18,7 @@ mindplot.ImageIcon = new Class({
             //Icon
             var image = this.getImage();
             var me = this;
-            image.addEvent('click', function () {
+            image.addEvent('click', function() {
 
                 var iconType = iconModel.getIconType();
                 var newIconType = me._getNextFamilyIconId(iconType);
@@ -49,15 +32,15 @@ mindplot.ImageIcon = new Class({
         }
     },
 
-    _getImageUrl: function (iconId) {
+    _getImageUrl: function(iconId) {
         return "icons/" + iconId + ".png";
     },
 
-    getModel: function () {
+    getModel: function() {
         return this._featureModel;
     },
 
-    _getNextFamilyIconId: function (iconId) {
+    _getNextFamilyIconId: function(iconId) {
 
         var familyIcons = this._getFamilyIcons(iconId);
         $assert(familyIcons != null, "Family Icon not found!");
@@ -78,7 +61,7 @@ mindplot.ImageIcon = new Class({
         return result;
     },
 
-    _getFamilyIcons: function (iconId) {
+    _getFamilyIcons: function(iconId) {
         $assert(iconId != null, "id must not be null");
         $assert(iconId.indexOf("_") != -1, "Invalid icon id (it must contain '_')");
 
@@ -95,7 +78,7 @@ mindplot.ImageIcon = new Class({
         return result;
     },
 
-    remove: function () {
+    remove: function() {
         var actionDispatcher = mindplot.ActionDispatcher.getInstance();
         var featureId = this._featureModel.getId();
         var topicId = this._topicId;
@@ -160,4 +143,3 @@ mindplot.ImageIcon.prototype.ICON_FAMILIES = [
     },
     {"id": "task", "icons": ["task_0", "task_25", "task_50", "task_75", "task_100"]}
 ];
-

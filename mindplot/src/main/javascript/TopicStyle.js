@@ -1,23 +1,6 @@
-/*
- *    Copyright [2011] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
 mindplot.TopicStyle = new Class({
     Static: {
-        _getStyles: function (topic) {
+        _getStyles: function(topic) {
             $assert(topic, "topic can not be null");
 
             var result;
@@ -38,36 +21,34 @@ mindplot.TopicStyle = new Class({
             return result;
         },
 
-        defaultText: function (topic) {
+        defaultText: function(topic) {
             var msgKey = this._getStyles(topic).msgKey;
             return $msg(msgKey);
         },
 
-        defaultFontStyle: function (topic) {
+        defaultFontStyle: function(topic) {
             return this._getStyles(topic).fontStyle;
         },
 
-        defaultBackgroundColor: function (topic) {
+        defaultBackgroundColor: function(topic) {
             return this._getStyles(topic).backgroundColor;
         },
 
-        defaultBorderColor: function (topic) {
+        defaultBorderColor: function(topic) {
             return this._getStyles(topic).borderColor;
         },
 
-        getInnerPadding: function (topic) {
+        getInnerPadding: function(topic) {
             return this._getStyles(topic).innerPadding;
         },
 
-        defaultShapeType: function (topic) {
+        defaultShapeType: function(topic) {
             return this._getStyles(topic).shapeType;
         }
-
     }
 });
 
-mindplot.TopicStyle.STYLES =
-{
+mindplot.TopicStyle.STYLES = {
     CENTRAL_TOPIC: {
         borderColor: 'rgb(57,113,177)',
         backgroundColor: 'rgb(80,157,192)',
@@ -96,7 +77,6 @@ mindplot.TopicStyle.STYLES =
         msgKey: 'MAIN_TOPIC',
         innerPadding: 3,
         shapeType: mindplot.model.TopicShape.LINE
-
     },
 
     SUB_TOPIC: {
@@ -129,4 +109,3 @@ mindplot.TopicStyle.STYLES =
         shapeType: mindplot.model.TopicShape.LINE
     }
 };
-

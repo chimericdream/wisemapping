@@ -16,9 +16,9 @@
  ...
  */
 
-(function () {
+(function() {
     this.MooTools = {version: "1.4.5", build: "ab8ea8824dc3b24b6666867a2c4ed58ebb762cf0"};
-    var o = this.typeOf = function (i) {
+    var o = this.typeOf = function(i) {
         if (i == null) {
             return "null";
         }
@@ -44,7 +44,7 @@
         }
         return typeof i;
     };
-    this.instanceOf = function (t, i) {
+    this.instanceOf = function(t, i) {
         if (t == null) {
             return false;
         }
@@ -68,9 +68,9 @@
     if (p) {
         p = ["hasOwnProperty", "valueOf", "isPrototypeOf", "propertyIsEnumerable", "toLocaleString", "toString", "constructor"];
     }
-    f.prototype.overloadSetter = function (s) {
+    f.prototype.overloadSetter = function(s) {
         var i = this;
-        return function (u, t) {
+        return function(u, t) {
             if (u == null) {
                 return this;
             }
@@ -92,37 +92,37 @@
             return this;
         };
     };
-    f.prototype.extend = function (i, s) {
+    f.prototype.extend = function(i, s) {
         this[i] = s;
     }.overloadSetter();
-    f.prototype.implement = function (i, s) {
+    f.prototype.implement = function(i, s) {
         this.prototype[i] = s;
     }.overloadSetter();
     var n = Array.prototype.slice;
-    Array.from = function (i) {
+    Array.from = function(i) {
         if (i == null) {
             return [];
         }
         return (a.isEnumerable(i) && typeof i != "string") ? (o(i) == "array") ? i : n.call(i) : [i];
     };
     f.implement({
-        hide: function () {
+        hide: function() {
             this.$hidden = true;
             return this;
-        }, protect: function () {
+        }, protect: function() {
             this.$protected = true;
             return this;
         }
     });
-    var a = this.Type = function (u, t) {
+    var a = this.Type = function(u, t) {
         if (u) {
             var s = u.toLowerCase();
-            var i = function (v) {
+            var i = function(v) {
                 return (o(v) == s);
             };
             a["is" + u] = i;
             if (t != null) {
-                t.prototype.$family = (function () {
+                t.prototype.$family = (function() {
                     return s;
                 }).hide();
             }
@@ -136,15 +136,15 @@
         return t;
     };
     var e = Object.prototype.toString;
-    a.isEnumerable = function (i) {
+    a.isEnumerable = function(i) {
         return (i != null && typeof i.length == "number" && e.call(i) != "[object Function]");
     };
     var q = {};
-    var r = function (i) {
+    var r = function(i) {
         var s = o(i.prototype);
         return q[s] || (q[s] = []);
     };
-    var b = function (t, x) {
+    var b = function(t, x) {
         if (x && x.$hidden) {
             return;
         }
@@ -163,12 +163,12 @@
             this.prototype[t] = x;
         }
         if (this[t] == null && o(x) == "function") {
-            m.call(this, t, function (i) {
+            m.call(this, t, function(i) {
                 return x.apply(i, n.call(arguments, 1));
             });
         }
     };
-    var m = function (i, t) {
+    var m = function(i, t) {
         if (t && t.$hidden) {
             return;
         }
@@ -178,15 +178,15 @@
         }
     };
     a.implement({
-        implement: b.overloadSetter(), extend: m.overloadSetter(), alias: function (i, s) {
+        implement: b.overloadSetter(), extend: m.overloadSetter(), alias: function(i, s) {
             b.call(this, i, this.prototype[s]);
-        }.overloadSetter(), mirror: function (i) {
+        }.overloadSetter(), mirror: function(i) {
             r(this).push(i);
             return this;
         }
     });
     new a("Type", a);
-    var d = function (s, x, v) {
+    var d = function(s, x, v) {
         var u = (x != Object), B = x.prototype;
         if (u) {
             x = new a(s, x);
@@ -202,7 +202,7 @@
         }
         if (u) {
             var t = B.propertyIsEnumerable(v[0]);
-            x.forEachMethod = function (G) {
+            x.forEachMethod = function(G) {
                 if (!t) {
                     for (var F = 0, D = v.length; F < D; F++) {
                         G.call(B, B[v[F]], v[F]);
@@ -217,18 +217,18 @@
     };
     d("String", String, ["charAt", "charCodeAt", "concat", "indexOf", "lastIndexOf", "match", "quote", "replace", "search", "slice", "split", "substr", "substring", "trim", "toLowerCase", "toUpperCase"])("Array", Array, ["pop", "push", "reverse", "shift", "sort", "splice", "unshift", "concat", "join", "slice", "indexOf", "lastIndexOf", "filter", "forEach", "every", "map", "some", "reduce", "reduceRight"])("Number", Number, ["toExponential", "toFixed", "toLocaleString", "toPrecision"])("Function", f, ["apply", "call", "bind"])("RegExp", RegExp, ["exec", "test"])("Object", Object, ["create", "defineProperty", "defineProperties", "keys", "getPrototypeOf", "getOwnPropertyDescriptor", "getOwnPropertyNames", "preventExtensions", "isExtensible", "seal", "isSealed", "freeze", "isFrozen"])("Date", Date, ["now"]);
     Object.extend = m.overloadSetter();
-    Date.extend("now", function () {
+    Date.extend("now", function() {
         return +(new Date);
     });
     new a("Boolean", Boolean);
-    Number.prototype.$family = function () {
+    Number.prototype.$family = function() {
         return isFinite(this) ? "number" : "null";
     }.hide();
-    Number.extend("random", function (s, i) {
+    Number.extend("random", function(s, i) {
         return Math.floor(Math.random() * (i - s + 1) + s);
     });
     var g = Object.prototype.hasOwnProperty;
-    Object.extend("forEach", function (i, t, u) {
+    Object.extend("forEach", function(i, t, u) {
         for (var s in i) {
             if (g.call(i, s)) {
                 t.call(u, i[s], s, i);
@@ -237,18 +237,18 @@
     });
     Object.each = Object.forEach;
     Array.implement({
-        forEach: function (u, v) {
+        forEach: function(u, v) {
             for (var t = 0, s = this.length; t < s; t++) {
                 if (t in this) {
                     u.call(v, this[t], t, this);
                 }
             }
-        }, each: function (i, s) {
+        }, each: function(i, s) {
             Array.forEach(this, i, s);
             return this;
         }
     });
-    var l = function (i) {
+    var l = function(i) {
         switch (o(i)) {
             case"array":
                 return i.clone();
@@ -258,14 +258,14 @@
                 return i;
         }
     };
-    Array.implement("clone", function () {
+    Array.implement("clone", function() {
         var s = this.length, t = new Array(s);
         while (s--) {
             t[s] = l(this[s]);
         }
         return t;
     });
-    var h = function (s, i, t) {
+    var h = function(s, i, t) {
         switch (o(t)) {
             case"object":
                 if (o(s[i]) == "object") {
@@ -283,7 +283,7 @@
         return s;
     };
     Object.extend({
-        merge: function (z, u, t) {
+        merge: function(z, u, t) {
             if (o(u) == "string") {
                 return h(z, u, t);
             }
@@ -295,13 +295,13 @@
                 }
             }
             return z;
-        }, clone: function (i) {
+        }, clone: function(i) {
             var t = {};
             for (var s in i) {
                 t[s] = l(i[s]);
             }
             return t;
-        }, append: function (w) {
+        }, append: function(w) {
             for (var v = 1, t = arguments.length;
                  v < t; v++) {
                 var s = arguments[v] || {};
@@ -312,17 +312,17 @@
             return w;
         }
     });
-    ["Object", "WhiteSpace", "TextNode", "Collection", "Arguments"].each(function (i) {
+    ["Object", "WhiteSpace", "TextNode", "Collection", "Arguments"].each(function(i) {
         new a(i);
     });
     var c = Date.now();
-    String.extend("uniqueID", function () {
+    String.extend("uniqueID", function() {
         return (c++).toString(36);
     });
 })();
 
 Array.implement({
-    filter: function (d, f) {
+    filter: function(d, f) {
         var c = [];
         for (var e, b = 0, a = this.length >>> 0; b < a; b++) {
             if (b in this) {
@@ -333,7 +333,7 @@ Array.implement({
             }
         }
         return c;
-    }, indexOf: function (c, d) {
+    }, indexOf: function(c, d) {
         var b = this.length >>> 0;
         for (var a = (d < 0) ? Math.max(0, b + d) : d || 0; a < b; a++) {
             if (this[a] === c) {
@@ -341,7 +341,7 @@ Array.implement({
             }
         }
         return -1;
-    }, map: function (c, e) {
+    }, map: function(c, e) {
         var d = this.length >>> 0, b = Array(d);
         for (var a = 0; a < d; a++) {
             if (a in this) {
@@ -349,7 +349,7 @@ Array.implement({
             }
         }
         return b;
-    }, some: function (c, d) {
+    }, some: function(c, d) {
         for (var b = 0, a = this.length >>> 0;
              b < a; b++) {
             if ((b in this) && c.call(d, this[b], b, this)) {
@@ -357,33 +357,33 @@ Array.implement({
             }
         }
         return false;
-    }, clean: function () {
-        return this.filter(function (a) {
+    }, clean: function() {
+        return this.filter(function(a) {
             return a != null;
         });
-    }, contains: function (a, b) {
+    }, contains: function(a, b) {
         return this.indexOf(a, b) != -1;
-    }, append: function (a) {
+    }, append: function(a) {
         this.push.apply(this, a);
         return this;
-    }, getLast: function () {
+    }, getLast: function() {
         return (this.length) ? this[this.length - 1] : null;
-    }, include: function (a) {
+    }, include: function(a) {
         if (!this.contains(a)) {
             this.push(a);
         }
         return this;
-    }, erase: function (b) {
+    }, erase: function(b) {
         for (var a = this.length; a--;) {
             if (this[a] === b) {
                 this.splice(a, 1);
             }
         }
         return this;
-    }, empty: function () {
+    }, empty: function() {
         this.length = 0;
         return this;
-    }, flatten: function () {
+    }, flatten: function() {
         var d = [];
         for (var b = 0, a = this.length; b < a; b++) {
             var c = typeOf(this[b]);
@@ -393,14 +393,14 @@ Array.implement({
             d = d.concat((c == "array" || c == "collection" || c == "arguments" || instanceOf(this[b], Array)) ? Array.flatten(this[b]) : this[b]);
         }
         return d;
-    }, pick: function () {
+    }, pick: function() {
         for (var b = 0, a = this.length; b < a; b++) {
             if (this[b] != null) {
                 return this[b];
             }
         }
         return null;
-    }, rgbToHex: function (d) {
+    }, rgbToHex: function(d) {
         if (this.length < 3) {
             return null;
         }
@@ -416,24 +416,24 @@ Array.implement({
     }
 });
 String.implement({
-    test: function (a, b) {
+    test: function(a, b) {
         return ((typeOf(a) == "regexp") ? a : new RegExp("" + a, b)).test(this);
-    }, contains: function (a, b) {
+    }, contains: function(a, b) {
         return (b) ? (b + this + b).indexOf(b + a + b) > -1 : String(this).indexOf(a) > -1;
-    }, capitalize: function () {
-        return String(this).replace(/\b[a-z]/g, function (a) {
+    }, capitalize: function() {
+        return String(this).replace(/\b[a-z]/g, function(a) {
             return a.toUpperCase();
         });
-    }, rgbToHex: function (b) {
+    }, rgbToHex: function(b) {
         var a = String(this).match(/\d{1,3}/g);
         return (a) ? a.rgbToHex(b) : null;
     }
 });
 Function.implement({
-    bind: function (e) {
-        var a = this, b = arguments.length > 1 ? Array.slice(arguments, 1) : null, d = function () {
+    bind: function(e) {
+        var a = this, b = arguments.length > 1 ? Array.slice(arguments, 1) : null, d = function() {
         };
-        var c = function () {
+        var c = function() {
             var g = e, h = arguments.length;
             if (this instanceof c) {
                 d.prototype = a.prototype;
@@ -443,25 +443,25 @@ Function.implement({
             return g == e ? f : g;
         };
         return c;
-    }, pass: function (b, c) {
+    }, pass: function(b, c) {
         var a = this;
         if (b != null) {
             b = Array.from(b);
         }
-        return function () {
+        return function() {
             return a.apply(c, b || arguments);
         };
-    }, delay: function (b, c, a) {
+    }, delay: function(b, c, a) {
         return setTimeout(this.pass((a == null ? [] : a), c), b);
     }
 });
 
 Number.alias("each", "times");
-(function (b) {
+(function(b) {
     var a = {};
-    b.each(function (c) {
+    b.each(function(c) {
         if (!Number[c]) {
-            a[c] = function () {
+            a[c] = function() {
                 return Math[c].apply(null, [this].concat(Array.from(arguments)));
             };
         }
@@ -469,12 +469,12 @@ Number.alias("each", "times");
     Number.implement(a);
 })(["abs", "acos", "asin", "atan", "atan2", "ceil", "cos", "exp", "floor", "log", "max", "min", "pow", "sin", "sqrt", "tan"]);
 
-(function () {
-    var a = this.Class = new Type("Class", function (h) {
+(function() {
+    var a = this.Class = new Type("Class", function(h) {
         if (instanceOf(h, Function)) {
             h = {initialize: h};
         }
-        var g = function () {
+        var g = function() {
             e(this);
             if (g.$prototyping) {
                 return this;
@@ -489,7 +489,7 @@ Number.alias("each", "times");
         g.prototype.parent = c;
         return g;
     });
-    var c = function () {
+    var c = function() {
         if (!this.$caller) {
             throw new Error('The method "parent" cannot be called.');
         }
@@ -499,12 +499,12 @@ Number.alias("each", "times");
         }
         return i.apply(this, arguments);
     };
-    var e = function (g) {
+    var e = function(g) {
         for (var h in g) {
             var j = g[h];
             switch (typeOf(j)) {
                 case"object":
-                    var i = function () {
+                    var i = function() {
                     };
                     i.prototype = j;
                     g[h] = e(new i);
@@ -516,11 +516,11 @@ Number.alias("each", "times");
         }
         return g;
     };
-    var b = function (g, h, j) {
+    var b = function(g, h, j) {
         if (j.$origin) {
             j = j.$origin;
         }
-        var i = function () {
+        var i = function() {
             if (j.$protected && this.$caller == null) {
                 throw new Error('The method "' + h + '" cannot be called.');
             }
@@ -534,7 +534,7 @@ Number.alias("each", "times");
         }.extend({$owner: g, $origin: j, $name: h});
         return i;
     };
-    var f = function (h, i, g) {
+    var f = function(h, i, g) {
         if (a.Mutators.hasOwnProperty(h)) {
             i = a.Mutators[h].call(this, i);
             if (i == null) {
@@ -551,7 +551,7 @@ Number.alias("each", "times");
         }
         return this;
     };
-    var d = function (g) {
+    var d = function(g) {
         g.$prototyping = true;
         var h = new g;
         delete g.$prototyping;
@@ -559,11 +559,11 @@ Number.alias("each", "times");
     };
     a.implement("implement", f.overloadSetter());
     a.Mutators = {
-        Extends: function (g) {
+        Extends: function(g) {
             this.parent = g;
             this.prototype = d(g);
-        }, Implements: function (g) {
-            Array.from(g).each(function (j) {
+        }, Implements: function(g) {
+            Array.from(g).each(function(j) {
                 var h = new j;
                 for (var i in h) {
                     f.call(this, i, h[i], true);

@@ -1,30 +1,11 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.layout.SymmetricSorter = new Class(/** @lends SymmetricSorter */{
-    Extends:mindplot.layout.AbstractBasicSorter,
+    Extends: mindplot.layout.AbstractBasicSorter,
+
     /**
      * @constructs
      * @extends mindplot.layout.AbstractBasicSorter
      */
-    initialize:function () {
-
-    },
+    initialize: function() {},
 
     /**
      * Predict the order and position of a dragged node.
@@ -36,8 +17,7 @@ mindplot.layout.SymmetricSorter = new Class(/** @lends SymmetricSorter */{
      * @param free Free drag or not
      * @return {*}
      */
-    predict:function (graph, parent, node, position, free) {
-
+    predict: function(graph, parent, node, position, free) {
         var self = this;
         var rootNode = graph.getRootNode(parent);
 
@@ -133,14 +113,14 @@ mindplot.layout.SymmetricSorter = new Class(/** @lends SymmetricSorter */{
         return [0, position];
     },
 
-    /** 
+    /**
      * @param treeSet
      * @param parent
      * @param child
      * @param order
      * @throws will throw an error if the order is not strictly continuous
      */
-    insert:function (treeSet, parent, child, order) {
+    insert: function(treeSet, parent, child, order) {
         var children = this._getSortedChildren(treeSet, parent);
         $assert(order <= children.length, "Order must be continues and can not have holes. Order:" + order);
 
@@ -152,11 +132,11 @@ mindplot.layout.SymmetricSorter = new Class(/** @lends SymmetricSorter */{
         child.setOrder(order);
     },
 
-    /** 
+    /**
      * @param treeSet
      * @param node
      * @throws will throw an error if the node is in the wrong position*/
-    detach:function (treeSet, node) {
+    detach: function(treeSet, node) {
         var parent = treeSet.getParent(node);
         var children = this._getSortedChildren(treeSet, parent);
         var order = node.getOrder();
@@ -170,18 +150,18 @@ mindplot.layout.SymmetricSorter = new Class(/** @lends SymmetricSorter */{
         node.setOrder(0);
     },
 
-    /** 
+    /**
      * @param treeSet
      * @param node
      * @throws will throw an error if treeSet is null or undefined
      * @throws will throw an error if node is null or undefined
-     * @throws will throw an error if the calculated x offset cannot be converted to a numeric 
+     * @throws will throw an error if the calculated x offset cannot be converted to a numeric
      * value, is null or undefined
-     * @throws will throw an error if the calculated y offset cannot be converted to a numeric 
+     * @throws will throw an error if the calculated y offset cannot be converted to a numeric
      * value, is null or undefined
      * @return offsets
      */
-    computeOffsets:function (treeSet, node) {
+    computeOffsets: function(treeSet, node) {
         $assert(treeSet, "treeSet can no be null.");
         $assert(node, "node can no be null.");
 
@@ -189,13 +169,13 @@ mindplot.layout.SymmetricSorter = new Class(/** @lends SymmetricSorter */{
 
         // Compute heights ...
         var heights = children.map(
-            function (child) {
+            function(child) {
                 return {id:child.getId(), order:child.getOrder(), position:child.getPosition(), width:child.getSize().width, height:this._computeChildrenHeight(treeSet, child)};
             }, this).reverse();
 
         // Compute the center of the branch ...
         var totalHeight = 0;
-        _.each(heights, function (elem) {
+        _.each(heights, function(elem) {
             totalHeight += elem.height;
         });
         var ysum = totalHeight / 2;
@@ -218,12 +198,12 @@ mindplot.layout.SymmetricSorter = new Class(/** @lends SymmetricSorter */{
         return result;
     },
 
-    /** 
+    /**
      * @param treeSet
      * @param node
      * @throws will throw an error if order elements are missing
      */
-    verify:function (treeSet, node) {
+    verify: function(treeSet, node) {
         // Check that all is consistent ...
         var children = this._getSortedChildren(treeSet, node);
 
@@ -232,11 +212,11 @@ mindplot.layout.SymmetricSorter = new Class(/** @lends SymmetricSorter */{
         }
     },
 
-    /** 
+    /**
      * @param treeSet
      * @param child
      * @return direction of the given child from its parent or from the root node, if isolated*/
-    getChildDirection:function (treeSet, child) {
+    getChildDirection: function(treeSet, child) {
         $assert(treeSet, "treeSet can no be null.");
         $assert(treeSet.getParent(child), "This should not happen");
 
@@ -251,17 +231,16 @@ mindplot.layout.SymmetricSorter = new Class(/** @lends SymmetricSorter */{
             var grandParent = treeSet.getParent(parent);
             var sorter = grandParent.getSorter();
             result = sorter.getChildDirection(treeSet, parent);
-
         }
         return result;
     },
 
     /** @return {String} the print name of this class */
-    toString:function () {
+    toString: function() {
         return "Symmetric Sorter";
     },
 
-    _getVerticalPadding:function () {
+    _getVerticalPadding: function() {
         return mindplot.layout.SymmetricSorter.INTERNODE_VERTICAL_PADDING;
     }
 });
@@ -272,11 +251,10 @@ mindplot.layout.SymmetricSorter = new Class(/** @lends SymmetricSorter */{
  * @default
  */
 mindplot.layout.SymmetricSorter.INTERNODE_VERTICAL_PADDING = 5;
+
 /**
  * @constant
  * @type {Number}
  * @default
  */
 mindplot.layout.SymmetricSorter.INTERNODE_HORIZONTAL_PADDING = 30;
-
-

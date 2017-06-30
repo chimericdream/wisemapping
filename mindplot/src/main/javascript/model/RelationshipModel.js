@@ -1,24 +1,6 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.model.RelationshipModel = new Class(/** @lends RelationshipModel */{
-    Static:{
-        _nextUUID:function () {
+    Static: {
+        _nextUUID: function() {
             if (!$defined(mindplot.model.RelationshipModel._uuid)) {
                 mindplot.model.RelationshipModel._uuid = 0;
             }
@@ -34,7 +16,7 @@ mindplot.model.RelationshipModel = new Class(/** @lends RelationshipModel */{
      * @throws will throw an error if sourceTopicId is null or undefined
      * @throws will throw an error if targetTopicId is null or undefined
      */
-    initialize:function (sourceTopicId, targetTopicId) {
+    initialize: function(sourceTopicId, targetTopicId) {
         $assert($defined(sourceTopicId), 'from node type can not be null');
         $assert($defined(targetTopicId), 'to node type can not be null');
 
@@ -49,75 +31,75 @@ mindplot.model.RelationshipModel = new Class(/** @lends RelationshipModel */{
     },
 
     /** */
-    getFromNode:function () {
+    getFromNode: function() {
         return this._sourceTargetId;
     },
 
     /** */
-    getToNode:function () {
+    getToNode: function() {
         return this._targetTopicId;
     },
 
     /** */
-    getId:function () {
+    getId: function() {
         $assert(this._id, "id is null");
         return this._id;
     },
 
     /** */
-    getLineType:function () {
+    getLineType: function() {
         return this._lineType;
     },
 
     /** */
-    setLineType:function (lineType) {
+    setLineType: function(lineType) {
         this._lineType = lineType;
     },
 
     /** */
-    getSrcCtrlPoint:function () {
+    getSrcCtrlPoint: function() {
         return this._srcCtrlPoint;
     },
 
     /** */
-    setSrcCtrlPoint:function (srcCtrlPoint) {
+    setSrcCtrlPoint: function(srcCtrlPoint) {
         this._srcCtrlPoint = srcCtrlPoint;
     },
 
     /** */
-    getDestCtrlPoint:function () {
+    getDestCtrlPoint: function() {
         return this._destCtrlPoint;
     },
 
     /** */
-    setDestCtrlPoint:function (destCtrlPoint) {
+    setDestCtrlPoint: function(destCtrlPoint) {
         this._destCtrlPoint = destCtrlPoint;
     },
 
     /** */
-    getEndArrow:function () {
+    getEndArrow: function() {
         return this._endArrow;
     },
 
     /** */
-    setEndArrow:function (endArrow) {
+    setEndArrow: function(endArrow) {
         this._endArrow = endArrow;
     },
 
     /** */
-    getStartArrow:function () {
+    getStartArrow: function() {
         return this._startArrow;
     },
 
     /** */
-    setStartArrow:function (startArrow) {
+    setStartArrow: function(startArrow) {
         this._startArrow = startArrow;
     },
 
     /**
      * @return a clone of the relationship model
      */
-    clone:function () {
+    clone: function() {
         var result = new mindplot.model.RelationshipModel(this._sourceTargetId, this._targetTopicId);
         result._id = this._id;
         result._lineType = this._lineType;
@@ -131,9 +113,7 @@ mindplot.model.RelationshipModel = new Class(/** @lends RelationshipModel */{
     /**
      * @return {String} textual information about the relationship's source and target node
      */
-    inspect:function () {
+    inspect: function() {
         return '(fromNode:' + this.getFromNode().getId() + ' , toNode: ' + this.getToNode().getId() + ')';
     }
 });
-
-

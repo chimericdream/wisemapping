@@ -1,23 +1,6 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.layout.LayoutManager = new Class(/** @lends LayoutManager */{
     Extends: mindplot.Events,
+
     /**
      * @constructs
      * @extends mindplot.Events
@@ -135,7 +118,7 @@ mindplot.layout.LayoutManager = new Class(/** @lends LayoutManager */{
      * @throws will throw an error if id is null or undefined
      * @return this
      */
-    addNode:function(id, size, position) {
+    addNode: function(id, size, position) {
         $assert($defined(id), "id can not be null");
         var result = this._layout.createNode(id, size, position, 'topic');
         this._treeSet.add(result);
@@ -234,12 +217,12 @@ mindplot.layout.LayoutManager = new Class(/** @lends LayoutManager */{
     },
 
     _collectChanges: function(nodes) {
-        if (!nodes)
+        if (!nodes) {
             nodes = this._treeSet.getTreeRoots();
+        }
 
         _.each(nodes, function(node) {
             if (node.hasOrderChanged() || node.hasPositionChanged()) {
-
                 // Find or create a event ...
                 var id = node.getId();
                 var event = this._events.some(function(event) {
@@ -261,6 +244,4 @@ mindplot.layout.LayoutManager = new Class(/** @lends LayoutManager */{
             this._collectChanges(this._treeSet.getChildren(node));
         }, this);
     }
-
 });
-

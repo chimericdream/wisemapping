@@ -1,46 +1,27 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.layout.OriginalLayout = new Class(/** @lends OriginalLayout */{
     /**
      * @constructs
      * @param treeSet
      */
-    initialize:function (treeSet) {
+    initialize: function(treeSet) {
         this._treeSet = treeSet;
     },
 
     /** */
-    createNode:function (id, size, position, type) {
+    createNode: function(id, size, position, type) {
         $assert($defined(id), "id can not be null");
         $assert(size, "size can not be null");
         $assert(position, "position can not be null");
         $assert(type, "type can not be null");
 
         var strategy = type === 'root' ?
-            mindplot.layout.OriginalLayout.BALANCED_SORTER :
+            mindplot.layout.OriginalLayout.BALANCED_SORTER:
             mindplot.layout.OriginalLayout.SYMMETRIC_SORTER;
         return new mindplot.layout.Node(id, size, position, strategy);
     },
 
     /** */
-    connectNode:function (parentId, childId, order) {
-
+    connectNode: function(parentId, childId, order) {
         var parent = this._treeSet.find(parentId);
         var child = this._treeSet.find(childId);
 
@@ -56,7 +37,7 @@ mindplot.layout.OriginalLayout = new Class(/** @lends OriginalLayout */{
     },
 
     /** */
-    disconnectNode:function (nodeId) {
+    disconnectNode: function(nodeId) {
         var node = this._treeSet.find(nodeId);
         var parent = this._treeSet.getParent(node);
         $assert(parent, "Node already disconnected");
@@ -77,10 +58,9 @@ mindplot.layout.OriginalLayout = new Class(/** @lends OriginalLayout */{
     },
 
     /** */
-    layout:function () {
+    layout: function() {
         var roots = this._treeSet.getTreeRoots();
-        _.each(roots, function (node) {
-
+        _.each(roots, function(node) {
             // Calculate all node heights ...
             var sorter = node.getSorter();
 
@@ -92,15 +72,14 @@ mindplot.layout.OriginalLayout = new Class(/** @lends OriginalLayout */{
         }, this);
     },
 
-    _layoutChildren:function (node, heightById) {
-
+    _layoutChildren: function(node, heightById) {
         var nodeId = node.getId();
         var children = this._treeSet.getChildren(node);
         var parent = this._treeSet.getParent(node);
-        var childrenOrderMoved = children.some(function (child) {
+        var childrenOrderMoved = children.some(function(child) {
             return child.hasOrderChanged();
         });
-        var childrenSizeChanged = children.some(function (child) {
+        var childrenSizeChanged = children.some(function(child) {
             return child.hasSizeChanged();
         });
 
@@ -117,7 +96,7 @@ mindplot.layout.OriginalLayout = new Class(/** @lends OriginalLayout */{
             var offsetById = sorter.computeOffsets(this._treeSet, node);
             var parentPosition = node.getPosition();
             var me = this;
-            _.each(children, function (child) {
+            _.each(children, function(child) {
                 var offset = offsetById[child.getId()];
 
                 var childFreeDisplacement = child.getFreeDisplacement();
@@ -142,12 +121,12 @@ mindplot.layout.OriginalLayout = new Class(/** @lends OriginalLayout */{
         }
 
         // Continue reordering the children nodes ...
-        _.each(children, function (child) {
+        _.each(children, function(child) {
             this._layoutChildren(child, heightById);
         }, this);
     },
 
-    _calculateAlignOffset:function (node, child, heightById) {
+    _calculateAlignOffset: function(node, child, heightById) {
         if (child.isFree()) {
             return 0;
         }
@@ -181,29 +160,29 @@ mindplot.layout.OriginalLayout = new Class(/** @lends OriginalLayout */{
         return offset;
     },
 
-    _branchIsTaller:function (node, heightById) {
+    _branchIsTaller: function(node, heightById) {
         return heightById[node.getId()] > (node.getSize().height + node.getSorter()._getVerticalPadding() * 2);
     },
 
-    _fixOverlapping:function (node, heightById) {
+    _fixOverlapping: function(node, heightById) {
         var children = this._treeSet.getChildren(node);
 
         if (node.isFree()) {
             this._shiftBranches(node, heightById);
         }
 
-        _.each(children, function (child) {
+        _.each(children, function(child) {
             this._fixOverlapping(child, heightById);
         }, this);
     },
 
-    _shiftBranches:function (node, heightById) {
+    _shiftBranches: function(node, heightById) {
         var shiftedBranches = [node];
 
         var siblingsToShift = this._treeSet.getSiblingsInVerticalDirection(node, node.getFreeDisplacement().y);
         var last = node;
-        _.each(siblingsToShift, function (sibling) {
-            var overlappingOccurs = shiftedBranches.some(function (shiftedBranch) {
+        _.each(siblingsToShift, function(sibling) {
+            var overlappingOccurs = shiftedBranches.some(function(shiftedBranch) {
                 return this._branchesOverlap(shiftedBranch, sibling, heightById);
             }, this);
 
@@ -214,11 +193,11 @@ mindplot.layout.OriginalLayout = new Class(/** @lends OriginalLayout */{
             }
         }, this);
 
-        var branchesToShift = this._treeSet.getBranchesInVerticalDirection(node, node.getFreeDisplacement().y).filter(function (branch) {
+        var branchesToShift = this._treeSet.getBranchesInVerticalDirection(node, node.getFreeDisplacement().y).filter(function(branch) {
             return !shiftedBranches.contains(branch);
         });
 
-        _.each(branchesToShift, function (branch) {
+        _.each(branchesToShift, function(branch) {
             var bAmount = node.getFreeDisplacement().y;
             this._treeSet.shiftBranchPosition(branch, 0, bAmount);
             shiftedBranches.push(branch);
@@ -226,7 +205,7 @@ mindplot.layout.OriginalLayout = new Class(/** @lends OriginalLayout */{
         }, this);
     },
 
-    _branchesOverlap:function (branchA, branchB, heightById) {
+    _branchesOverlap: function(branchA, branchB, heightById) {
         // a branch doesn't really overlap with itself
         if (branchA == branchB) {
             return false;
@@ -239,18 +218,14 @@ mindplot.layout.OriginalLayout = new Class(/** @lends OriginalLayout */{
 
         return !(topA >= bottomB || bottomA <= topB);
     }
-
 });
-
 
 /**
  * @type {mindplot.layout.SymmetricSorter}
  */
 mindplot.layout.OriginalLayout.SYMMETRIC_SORTER = new mindplot.layout.SymmetricSorter();
+
 /**
  * @type {mindplot.layout.BalancedSorter}
  */
 mindplot.layout.OriginalLayout.BALANCED_SORTER = new mindplot.layout.BalancedSorter();
-
-
-

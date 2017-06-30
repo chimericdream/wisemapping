@@ -1,24 +1,7 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.widget.ToolbarPaneItem = new Class({
-    Extends:mindplot.widget.ToolbarItem,
-    initialize : function(buttonId, model) {
+    Extends: mindplot.widget.ToolbarItem,
+
+    initialize: function(buttonId, model) {
         $assert(buttonId, "buttonId can not be null");
         $assert(model, "model can not be null");
         this._model = model;
@@ -32,7 +15,7 @@ mindplot.widget.ToolbarPaneItem = new Class({
         this._visible = false;
     },
 
-    _init:function () {
+    _init: function() {
         // Load the context of the panel ...
         var panelElem = this.buildPanel();
         panelElem.css('cursor', 'default');
@@ -61,15 +44,15 @@ mindplot.widget.ToolbarPaneItem = new Class({
         return panelElem;
     },
 
-    getModel : function() {
+    getModel: function() {
         return this._model;
     },
 
-    getPanelElem : function() {
+    getPanelElem: function() {
         return this._panelElem;
     }.protect(),
 
-    show : function() {
+    show: function() {
         if (!this.isVisible()) {
             this.parent();
             this._tip.show();
@@ -77,7 +60,7 @@ mindplot.widget.ToolbarPaneItem = new Class({
         }
     },
 
-    hide : function() {
+    hide: function() {
         if (this.isVisible()) {
             this.parent();
             this._tip.hide();
@@ -85,11 +68,11 @@ mindplot.widget.ToolbarPaneItem = new Class({
         }
     },
 
-    isVisible : function() {
+    isVisible: function() {
         return this._visible;
     },
 
-    disable : function() {
+    disable: function() {
         this.hide();
         var elem = this.getButtonElem();
         if (this._enable) {
@@ -104,7 +87,7 @@ mindplot.widget.ToolbarPaneItem = new Class({
         }
     },
 
-    enable : function() {
+    enable: function() {
         var elem = this.getButtonElem();
         if (!this._enable) {
             elem.bind('click', this._fn);
@@ -114,9 +97,7 @@ mindplot.widget.ToolbarPaneItem = new Class({
         }
     },
 
-
-    buildPanel : function() {
+    buildPanel: function() {
         throw "Method must be implemented";
     }.protect()
-
 });

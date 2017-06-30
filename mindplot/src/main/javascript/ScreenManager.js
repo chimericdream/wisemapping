@@ -1,72 +1,53 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.ScreenManager = new Class({
-    initialize: function (divElement) {
+    initialize: function(divElement) {
         $assert(divElement, "can not be null");
         this._divContainer = divElement;
         this._padding = {x: 0, y: 0};
 
         // Ignore default click event propagation. Prevent 'click' event on drag.
         this._clickEvents = [];
-        this._divContainer.bind('click', function (event) {
+        this._divContainer.bind('click', function(event) {
             event.stopPropagation()
         });
 
-        this._divContainer.bind('dblclick', function (event) {
+        this._divContainer.bind('dblclick', function(event) {
             event.stopPropagation();
             event.preventDefault();
         });
     },
 
-    setScale: function (scale) {
+    setScale: function(scale) {
         $assert(scale, 'Screen scale can not be null');
         this._scale = scale;
     },
 
-    addEvent: function (event, listener) {
-        if (event == 'click')
+    addEvent: function(event, listener) {
+        if (event == 'click') {
             this._clickEvents.push(listener);
-        else
+        } else {
             this._divContainer.bind(event, listener);
+        }
     },
 
-    removeEvent: function (event, listener) {
+    removeEvent: function(event, listener) {
         if (event == 'click') {
             this._clickEvents.remove(listener);
-        }
-        else {
+        } else {
             this._divContainer.unbind(event, listener);
         }
     },
 
-    fireEvent: function (type, event) {
+    fireEvent: function(type, event) {
         if (type == 'click') {
-            _.each(this._clickEvents, function (listener) {
+            _.each(this._clickEvents, function(listener) {
                 listener(type, event);
             });
-        }
-        else {
+        } else {
             this._divContainer.trigger(type, event);
         }
     },
 
-    _getElementPosition: function (elem) {
+    _getElementPosition: function(elem) {
         // Retrieve current element position.
         var elementPosition = elem.getPosition();
         var x = elementPosition.x;
@@ -84,7 +65,7 @@ mindplot.ScreenManager = new Class({
         return {x: x, y: y};
     },
 
-    getWorkspaceIconPosition: function (e) {
+    getWorkspaceIconPosition: function(e) {
         // Retrieve current icon position.
         var image = e.getImage();
         var elementPosition = image.getPosition();
@@ -116,7 +97,7 @@ mindplot.ScreenManager = new Class({
         return {x: x + topicPosition.x, y: y + topicPosition.y};
     },
 
-    getWorkspaceMousePosition: function (event) {
+    getWorkspaceMousePosition: function(event) {
         // Retrieve current mouse position.
         var x = event.clientX;
         var y = event.clientY;
@@ -138,11 +119,11 @@ mindplot.ScreenManager = new Class({
         return new core.Point(x, y);
     },
 
-    getContainer: function () {
+    getContainer: function() {
         return this._divContainer;
     },
 
-    setOffset: function (x, y) {
+    setOffset: function(x, y) {
         this._padding.x = x;
         this._padding.y = y;
     }

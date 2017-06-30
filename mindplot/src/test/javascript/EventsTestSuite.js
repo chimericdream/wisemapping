@@ -11,14 +11,12 @@ var TestClass = new Class({
 });
 
 // Test class and variables
-var expectedChangeFn1 = function () {return 'change1';};
-var expectedChangeFn2 = function () {return 'change2';};
+var expectedChangeFn1 = function() {return 'change1';};
+var expectedChangeFn2 = function() {return 'change2';};
 var expectedLoadFn = function() {return 'loaded';};
 var myTestClass = new TestClass();
 
-
 describe("Events class suite", function() {
-
     afterEach(function() {
         myTestClass.removeEvents();
     });
@@ -32,6 +30,7 @@ describe("Events class suite", function() {
         myTestClass.addEvent('load', expectedLoadFn);
         expect(myTestClass.getEvents()).toEqual({change: [expectedChangeFn1, expectedChangeFn2], load: [expectedLoadFn]});
     });
+
     it("removeEventTest", function() {
         expect(myTestClass.getEvents()).toEqual({});
         myTestClass.addEvent('change', expectedChangeFn1);

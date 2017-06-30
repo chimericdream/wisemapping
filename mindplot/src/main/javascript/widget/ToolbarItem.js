@@ -1,24 +1,7 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.widget.ToolbarItem = new Class({
     Implements: mindplot.Events, //FIXME: should be extends?
-    initialize : function(buttonId, fn, options) {
+
+    initialize: function(buttonId, fn, options) {
         $assert(buttonId, "buttonId can not be null");
         $assert(fn, "fn can not be null");
         this._buttonId = buttonId;
@@ -28,29 +11,29 @@ mindplot.widget.ToolbarItem = new Class({
         this.enable();
     },
 
-    getButtonElem : function() {
+    getButtonElem: function() {
         var elem = $('#'+this._buttonId);
         $assert(elem, "Could not find element for " + this._buttonId);
         return elem;
     }.protect(),
 
-    show : function() {
+    show: function() {
         this.fireEvent('show');
     },
 
-    hide : function() {
+    hide: function() {
         this.fireEvent('hide');
     },
 
-    isTopicAction : function() {
+    isTopicAction: function() {
         return this._options.topicAction;
     },
 
-    isRelAction : function() {
+    isRelAction: function() {
         return this._options.relAction;
     },
 
-    disable : function() {
+    disable: function() {
         var elem = this.getButtonElem();
         if (this._enable) {
             elem.unbind('click', this._fn);
@@ -60,7 +43,7 @@ mindplot.widget.ToolbarItem = new Class({
         }
     },
 
-    enable : function() {
+    enable: function() {
         var elem = this.getButtonElem();
         if (!this._enable) {
             elem.bind('click', this._fn);
@@ -70,7 +53,7 @@ mindplot.widget.ToolbarItem = new Class({
         }
     },
 
-    getTip : function() {
+    getTip: function() {
         return this._tip;
     }.protect()
 });

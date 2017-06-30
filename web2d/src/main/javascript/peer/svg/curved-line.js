@@ -1,24 +1,7 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 web2d.peer.svg.CurvedLinePeer = new Class({
     Extends: web2d.peer.svg.ElementPeer,
-    initialize :function() {
+
+    initialize: function() {
         var svgElement = window.document.createElementNS(this.svgNamespace, 'path');
         this.parent(svgElement);
         this._style = {fill:'#495879'};
@@ -31,7 +14,7 @@ web2d.peer.svg.CurvedLinePeer = new Class({
     },
 
 
-    setSrcControlPoint : function(control) {
+    setSrcControlPoint: function(control) {
         this._customControlPoint_1 = true;
         var change = this._control1.x != control.x || this._control1.y != control.y;
         if ($defined(control.x)) {
@@ -39,11 +22,12 @@ web2d.peer.svg.CurvedLinePeer = new Class({
             this._control1.x = parseInt(this._control1.x);
             this._control1.y = parseInt(this._control1.y)
         }
-        if (change)
+        if (change) {
             this._updatePath();
+        }
     },
 
-    setDestControlPoint : function(control) {
+    setDestControlPoint: function(control) {
         this._customControlPoint_2 = true;
         var change = this._control2.x != control.x || this._control2.y != control.y;
         if ($defined(control.x)) {
@@ -51,71 +35,74 @@ web2d.peer.svg.CurvedLinePeer = new Class({
             this._control2.x = parseInt(this._control2.x);
             this._control2.y = parseInt(this._control2.y)
         }
-        if (change)
+        if (change) {
             this._updatePath();
+        }
     },
 
-    isSrcControlPointCustom : function() {
+    isSrcControlPointCustom: function() {
         return this._customControlPoint_1;
     },
 
-    isDestControlPointCustom : function() {
+    isDestControlPointCustom: function() {
         return this._customControlPoint_2;
     },
 
-    setIsSrcControlPointCustom : function(isCustom) {
+    setIsSrcControlPointCustom: function(isCustom) {
         this._customControlPoint_1 = isCustom;
     },
 
-    setIsDestControlPointCustom : function(isCustom) {
+    setIsDestControlPointCustom: function(isCustom) {
         this._customControlPoint_2 = isCustom;
     },
 
 
-    getControlPoints : function() {
+    getControlPoints: function() {
         return [this._control1, this._control2];
     },
 
-    setFrom : function(x1, y1) {
+    setFrom: function(x1, y1) {
         var change = this._x1 != parseInt(x1) || this._y1 != parseInt(y1);
         this._x1 = parseInt(x1);
         this._y1 = parseInt(y1);
-        if (change)
+        if (change) {
             this._updatePath();
+        }
     },
 
-    setTo : function(x2, y2) {
+    setTo: function(x2, y2) {
         var change = this._x2 != parseInt(x2) || this._y2 != parseInt(y2);
         this._x2 = parseInt(x2);
         this._y2 = parseInt(y2);
-        if (change)
+        if (change) {
             this._updatePath();
+        }
     },
 
-    getFrom : function() {
+    getFrom: function() {
         return new core.Point(this._x1, this._y1);
     },
 
-    getTo : function() {
+    getTo: function() {
         return new core.Point(this._x2, this._y2);
     },
 
-    setStrokeWidth : function(width) {
+    setStrokeWidth: function(width) {
         this._style['stroke-width'] = width;
         this._updateStyle();
     },
 
-    setColor : function(color) {
+    setColor: function(color) {
         this._style['stroke'] = color;
         this._style['fill'] = color;
         this._updateStyle();
     },
 
-    updateLine : function(avoidControlPointFix) {
+    updateLine: function(avoidControlPointFix) {
         this._updatePath(avoidControlPointFix);
     },
 
-    setLineStyle : function (style) {
+    setLineStyle: function(style) {
         this._lineStyle = style;
         if (this._lineStyle) {
             this._style['fill'] = this._fill;
@@ -127,31 +114,31 @@ web2d.peer.svg.CurvedLinePeer = new Class({
         this.updateLine();
     },
 
-    getLineStyle : function () {
+    getLineStyle: function() {
         return this._lineStyle;
     },
 
 
-    setShowEndArrow : function(visible) {
+    setShowEndArrow: function(visible) {
         this._showEndArrow = visible;
         this.updateLine();
     },
 
-    isShowEndArrow : function() {
+    isShowEndArrow: function() {
         return this._showEndArrow;
     },
 
-    setShowStartArrow : function(visible) {
+    setShowStartArrow: function(visible) {
         this._showStartArrow = visible;
         this.updateLine();
     },
 
-    isShowStartArrow : function() {
+    isShowStartArrow: function() {
         return this._showStartArrow;
     },
 
 
-    _updatePath : function(avoidControlPointFix) {
+    _updatePath: function(avoidControlPointFix) {
         if ($defined(this._x1) && $defined(this._y1) && $defined(this._x2) && $defined(this._y2)) {
             this._calculateAutoControlPoints(avoidControlPointFix);
             var path = "M" + this._x1 + "," + this._y1
@@ -168,7 +155,7 @@ web2d.peer.svg.CurvedLinePeer = new Class({
         }
     },
 
-    _updateStyle : function() {
+    _updateStyle: function() {
         var style = "";
         for (var key in this._style) {
             style += key + ":" + this._style[key] + " ";
@@ -176,7 +163,7 @@ web2d.peer.svg.CurvedLinePeer = new Class({
         this._native.setAttribute("style", style);
     },
 
-    _calculateAutoControlPoints : function(avoidControlPointFix) {
+    _calculateAutoControlPoints: function(avoidControlPointFix) {
         //Both points available, calculate real points
         var defaultpoints = mindplot.util.Shape.calculateDefaultControlPoints(new core.Point(this._x1, this._y1), new core.Point(this._x2, this._y2));
         if (!this._customControlPoint_1 && !($defined(avoidControlPointFix) && avoidControlPointFix == 0)) {
@@ -189,12 +176,11 @@ web2d.peer.svg.CurvedLinePeer = new Class({
         }
     },
 
-    setDashed : function(length, spacing) {
+    setDashed: function(length, spacing) {
         if ($defined(length) && $defined(spacing)) {
             this._native.setAttribute("stroke-dasharray", length + "," + spacing);
         } else {
             this._native.setAttribute("stroke-dasharray", "");
         }
-
     }
 });

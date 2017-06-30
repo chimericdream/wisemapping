@@ -1,23 +1,5 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.DragPivot = new Class({
-    initialize:function() {
+    initialize: function() {
         this._position = new core.Point();
         this._size = mindplot.DragTopic.PIVOT_SIZE;
 
@@ -29,15 +11,15 @@ mindplot.DragPivot = new Class({
         this._isVisible = false;
     },
 
-    isVisible:function() {
+    isVisible: function() {
         return this._isVisible;
     },
 
-    getTargetTopic : function() {
+    getTargetTopic: function() {
         return this._targetTopic;
     },
 
-    _buildStraightLine : function() {
+    _buildStraightLine: function() {
         var line = new web2d.CurvedLine();
         line.setStyle(web2d.CurvedLine.SIMPLE_LINE);
         line.setStroke(1, 'solid', '#CC0033');
@@ -46,7 +28,7 @@ mindplot.DragPivot = new Class({
         return line;
     },
 
-    _buildCurvedLine : function() {
+    _buildCurvedLine: function() {
         var line = new web2d.CurvedLine();
         line.setStyle(web2d.CurvedLine.SIMPLE_LINE);
         line.setStroke(1, 'solid', '#CC0033');
@@ -55,8 +37,7 @@ mindplot.DragPivot = new Class({
         return line;
     },
 
-
-    _redrawLine : function() {
+    _redrawLine: function() {
         // Update line position.
         $assert(this.getTargetTopic(), 'Illegal invocation. Target node can not be null');
 
@@ -87,16 +68,16 @@ mindplot.DragPivot = new Class({
         line.setTo(targetPoint.x, targetPoint.y);
     },
 
-    setPosition : function(point) {
+    setPosition: function(point) {
         this._position = point;
         this._redrawLine();
     },
 
-    getPosition : function() {
+    getPosition: function() {
         return this._position;
     },
 
-    _buildRect : function() {
+    _buildRect: function() {
         var size = this._size;
         var rectAttributes = {fillColor:'#CC0033',opacity:0.4,width:size.width,height:size.height,strokeColor:'#FF9933'};
         var rect = new web2d.Rect(0, rectAttributes);
@@ -104,18 +85,17 @@ mindplot.DragPivot = new Class({
         return rect;
     },
 
-    _getPivotRect : function() {
+    _getPivotRect: function() {
         return this._dragPivot;
     },
 
-    getSize : function() {
+    getSize: function() {
         var elem2d = this._getPivotRect();
         return elem2d.getSize();
     },
 
-    setVisibility : function(value) {
+    setVisibility: function(value) {
         if (this.isVisible() != value) {
-
             var pivotRect = this._getPivotRect();
             pivotRect.setVisibility(value);
 
@@ -131,7 +111,7 @@ mindplot.DragPivot = new Class({
     },
 
     // If the node is connected, validate that there is a line connecting both...
-    _getConnectionLine : function() {
+    _getConnectionLine: function() {
         var result = null;
         var parentTopic = this._targetTopic;
         if (parentTopic) {
@@ -144,7 +124,7 @@ mindplot.DragPivot = new Class({
         return result;
     },
 
-    addToWorkspace : function(workspace) {
+    addToWorkspace: function(workspace) {
         var pivotRect = this._getPivotRect();
         workspace.append(pivotRect);
 
@@ -170,7 +150,7 @@ mindplot.DragPivot = new Class({
         connectRect.moveToBack();
     },
 
-    removeFromWorkspace : function(workspace) {
+    removeFromWorkspace: function(workspace) {
         var shape = this._getPivotRect();
         workspace.removeChild(shape);
 
@@ -186,7 +166,7 @@ mindplot.DragPivot = new Class({
         }
     },
 
-    connectTo : function(targetTopic, position) {
+    connectTo: function(targetTopic, position) {
         $assert(!this._outgoingLine, 'Could not connect an already connected node');
         $assert(targetTopic != this, 'Circular connection are not allowed');
         $assert(position, 'position can not be null');
@@ -218,7 +198,7 @@ mindplot.DragPivot = new Class({
         this._redrawLine();
     },
 
-    disconnect : function(workspace) {
+    disconnect: function(workspace) {
         $assert(workspace, 'workspace can not be null.');
         $assert(this._targetTopic, 'There are not connected topic.');
 

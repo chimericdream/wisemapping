@@ -1,24 +1,7 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 web2d.Workspace = new Class({
     Extends: web2d.Element,
-    initialize: function (attributes) {
+
+    initialize: function(attributes) {
         this._htmlContainer = this._createDivContainer();
 
         var peer = web2d.peer.Toolkit.createWorkspace(this._htmlContainer);
@@ -33,14 +16,14 @@ web2d.Workspace = new Class({
         this._htmlContainer.append(this._peer._native);
     },
 
-    getType: function () {
+    getType: function() {
         return "Workspace";
     },
 
     /**
      * Appends an element as a child to the object.
      */
-    append: function (element) {
+    append: function(element) {
         if (!$defined(element)) {
             throw "Child element can not be null";
         }
@@ -56,7 +39,7 @@ web2d.Workspace = new Class({
         this._peer.append(element._peer);
     },
 
-    addItAsChildTo: function (element) {
+    addItAsChildTo: function(element) {
         if (!$defined(element)) {
             throw "Workspace div container can not be null";
         }
@@ -66,7 +49,7 @@ web2d.Workspace = new Class({
     /**
      * Create a new div element that will be responsible for containing the workspace elements.
      */
-    _createDivContainer: function () {
+    _createDivContainer: function() {
         var container = window.document.createElement("div");
         container.id = "workspaceContainer";
 //        container.style.overflow = "hidden";
@@ -87,7 +70,7 @@ web2d.Workspace = new Class({
      * pt (points; 1pt=1/72in)
      * pc (picas; 1pc=12pt)
      */
-    setSize: function (width, height) {
+    setSize: function(width, height) {
         // HTML container must have the size of the group element.
         if ($defined(width)) {
             this._htmlContainer.css('width', width);
@@ -107,53 +90,51 @@ web2d.Workspace = new Class({
      * Consequently CSS2 position attributes (left, top, width, height and so on) have no unit specifier -
      * they are simple numbers, not CSS length quantities.
      */
-    setCoordSize: function (width, height) {
+    setCoordSize: function(width, height) {
         this._peer.setCoordSize(width, height);
     },
 
     /**
      * @Todo: Complete Doc
      */
-    setCoordOrigin: function (x, y) {
+    setCoordOrigin: function(x, y) {
         this._peer.setCoordOrigin(x, y);
     },
 
     /**
      * @Todo: Complete Doc
      */
-    getCoordOrigin: function () {
+    getCoordOrigin: function() {
         return this._peer.getCoordOrigin();
     },
 
-
-// Private method declaration area
+    // Private method declaration area
     /**
      * All the SVG elements will be children of this HTML element.
      */
-    _getHtmlContainer: function () {
+    _getHtmlContainer: function() {
         return this._htmlContainer;
     },
 
-    setFill: function (color, opacity) {
+    setFill: function(color, opacity) {
         this._htmlContainer.css('background-color', color);
         if (opacity || opacity === 0) {
             throw "Unsupported operation. Opacity not supported.";
         }
     },
 
-    getFill: function () {
+    getFill: function() {
         var color = this._htmlContainer.css('background-color');
         return {color: color};
     },
 
-
-    getSize: function () {
+    getSize: function() {
         var width = this._htmlContainer.css('width');
         var height = this._htmlContainer.css('height');
         return {width: width, height: height};
     },
 
-    setStroke: function (width, style, color, opacity) {
+    setStroke: function(width, style, color, opacity) {
         if (style != 'solid') {
             throw 'Not supported style stroke style:' + style;
         }
@@ -164,15 +145,14 @@ web2d.Workspace = new Class({
         }
     },
 
-
-    getCoordSize: function () {
+    getCoordSize: function() {
         return this._peer.getCoordSize();
     },
 
     /**
      * Remove an element as a child to the object.
      */
-    removeChild: function (element) {
+    removeChild: function(element) {
         if (!$defined(element)) {
             throw "Child element can not be null";
         }
@@ -189,8 +169,8 @@ web2d.Workspace = new Class({
         this._peer.removeChild(element._peer);
     },
 
-    dumpNativeChart: function () {
-        var elem = this._htmlContainer
+    dumpNativeChart: function() {
+        var elem = this._htmlContainer;
         return elem.innerHTML;
     }
 });

@@ -18,7 +18,7 @@
 mindplot.layout.BalancedTestSuite = new Class({
     Extends: mindplot.layout.TestSuite,
 
-    initialize:function() {
+    initialize: function() {
         $('#balancedTest').setStyle("display","block");
 
         this.testBalanced();

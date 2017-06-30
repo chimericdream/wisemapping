@@ -28,11 +28,11 @@ BootstrapDialog.Request = new Class({
             });
         };
 
-        this._native.find('.modal-body').load(url, function () {
-            me.acceptButton.unbind('click').click(function () {
+        this._native.find('.modal-body').load(url, function() {
+            me.acceptButton.unbind('click').click(function() {
                 submitDialogForm();
             });
-            me._native.on('hidden.bs.modal', function () {
+            me._native.on('hidden.bs.modal', function() {
                 $(this).remove();
             });
             me.show();

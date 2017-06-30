@@ -1,44 +1,26 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.DesignerKeyboard = new Class({
     Extends: mindplot.Keyboard,
-    Static:{
-        register:function (designer) {
+
+    Static: {
+        register: function(designer) {
             this._instance = new mindplot.DesignerKeyboard(designer);
         },
 
-        getInstance:function () {
+        getInstance: function() {
             return this._instance;
         }
     },
 
-    initialize:function (designer) {
+    initialize: function(designer) {
         $assert(designer, "designer can not be null");
         this._registerEvents(designer);
     },
 
-    _registerEvents:function (designer) {
-
+    _registerEvents: function(designer) {
         // Try with the keyboard ..
         var model = designer.getModel();
         this.addShortcut(
-            ['backspace'], function (event) {
+            ['backspace'], function(event) {
                 event.preventDefault();
                 event.stopPropagation();
                 designer.deleteSelectedEntities();
@@ -100,35 +82,35 @@ mindplot.DesignerKeyboard = new Class({
             }
         );
         this.addShortcut(
-            ['ctrl+c', 'meta+c'], function (event) {
+            ['ctrl+c', 'meta+c'], function(event) {
                 event.preventDefault(event);
                 event.stopPropagation();
                 designer.copyToClipboard();
             }
         );
         this.addShortcut(
-            ['ctrl+v', 'meta+v'], function (event) {
+            ['ctrl+v', 'meta+v'], function(event) {
                 event.preventDefault(event);
                 event.stopPropagation();
                 designer.pasteClipboard();
             }
         );
         this.addShortcut(
-            ['ctrl+shift+z', 'meta+shift+z', 'ctrl+y', 'meta+y'], function (event) {
+            ['ctrl+shift+z', 'meta+shift+z', 'ctrl+y', 'meta+y'], function(event) {
                 event.preventDefault();
                 event.stopPropagation();
                 designer.redo();
             }
         );
         this.addShortcut(
-            ['ctrl+a', 'meta+a'], function (event) {
+            ['ctrl+a', 'meta+a'], function(event) {
                 event.preventDefault();
                 event.stopPropagation();
                 designer.selectAll();
             }
         );
         this.addShortcut(
-            ['ctrl+b', 'meta+b'], function (event) {
+            ['ctrl+b', 'meta+b'], function(event) {
                 event.preventDefault();
                 event.stopPropagation();
 
@@ -136,14 +118,14 @@ mindplot.DesignerKeyboard = new Class({
             }
         );
         this.addShortcut(
-            ['ctrl+s', 'meta+s'], function (event) {
+            ['ctrl+s', 'meta+s'], function(event) {
                 event.preventDefault();
                 event.stopPropagation();
                 $(document).find('#save').trigger('click');
             }
         );
         this.addShortcut(
-            ['ctrl+i', 'meta+i'], function (event) {
+            ['ctrl+i', 'meta+i'], function(event) {
                 event.preventDefault();
                 event.stopPropagation();
 
@@ -151,7 +133,7 @@ mindplot.DesignerKeyboard = new Class({
             }
         );
         this.addShortcut(
-            ['ctrl+shift+a', 'meta+shift+a'], function (event) {
+            ['ctrl+shift+a', 'meta+shift+a'], function(event) {
                 event.preventDefault();
                 event.stopPropagation();
 
@@ -159,7 +141,7 @@ mindplot.DesignerKeyboard = new Class({
             }
         );
         this.addShortcut(
-            ['meta+=', 'ctrl+='], function (event) {
+            ['meta+=', 'ctrl+='], function(event) {
                 event.preventDefault();
                 event.stopPropagation();
 
@@ -167,7 +149,7 @@ mindplot.DesignerKeyboard = new Class({
             }
         );
         this.addShortcut(
-            ['meta+-', 'ctrl+-'], function (event) {
+            ['meta+-', 'ctrl+-'], function(event) {
                 event.preventDefault();
                 event.stopPropagation();
 
@@ -176,7 +158,7 @@ mindplot.DesignerKeyboard = new Class({
         );
         var me = this;
         this.addShortcut(
-            'right', function (event) {
+            'right', function(event) {
                 var node = model.selectedTopic();
                 if (node) {
                     if (node.isCentralTopic()) {
@@ -199,7 +181,7 @@ mindplot.DesignerKeyboard = new Class({
             }
         );
         this.addShortcut(
-            'left', function (event) {
+            'left', function(event) {
                 var node = model.selectedTopic();
                 if (node) {
                     if (node.isCentralTopic()) {
@@ -222,7 +204,7 @@ mindplot.DesignerKeyboard = new Class({
             }
         );
         this.addShortcut(
-            'up', function (event) {
+            'up', function(event) {
                 var node = model.selectedTopic();
                 if (node) {
                     if (!node.isCentralTopic()) {
@@ -237,7 +219,7 @@ mindplot.DesignerKeyboard = new Class({
             }
         );
         this.addShortcut(
-            'down', function (event) {
+            'down', function(event) {
                 var node = model.selectedTopic();
                 if (node) {
                     if (!node.isCentralTopic()) {
@@ -252,8 +234,8 @@ mindplot.DesignerKeyboard = new Class({
             }
         );
         var excludes = ['esc', 'escape', 'f1', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12'];
-        
-        $(document).on('keypress', function (event) {
+
+        $(document).on('keypress', function(event) {
             var keyCode;
             // Firefox doesn't skip special keys for keypress event...
             if (event.key && excludes.contains(event.key.toLowerCase())) {
@@ -270,7 +252,6 @@ mindplot.DesignerKeyboard = new Class({
             if (["enter", "capslock"].indexOf(specialKey) == -1 && !jQuery.hotkeys.shiftNums[keyCode]) {
                 var nodes = designer.getModel().filterSelectedTopics();
                 if (nodes.length > 0) {
-
                     // If a modifier is press, the key selected must be ignored.
                     var pressKey = String.fromCharCode(keyCode);
                     if (event.ctrlKey || event.altKey || event.metaKey) {
@@ -280,12 +261,10 @@ mindplot.DesignerKeyboard = new Class({
                     event.stopPropagation();
                 }
             }
-            
         });
-
     },
 
-    _goToBrother:function (designer, node, direction) {
+    _goToBrother: function(designer, node, direction) {
         var parent = node.getParent();
         if (parent) {
             var brothers = parent.getChildren();
@@ -325,8 +304,7 @@ mindplot.DesignerKeyboard = new Class({
         }
     },
 
-
-    _goToSideChild:function (designer, node, side) {
+    _goToSideChild: function(designer, node, side) {
         var children = node.getChildren();
         if (children.length > 0) {
             var target = children[0];
@@ -352,14 +330,14 @@ mindplot.DesignerKeyboard = new Class({
         }
     },
 
-    _goToParent:function (designer, node) {
+    _goToParent: function(designer, node) {
         var parent = node.getParent();
         if (parent) {
             this._goToNode(designer, parent);
         }
     },
 
-    _goToChild:function (designer, node) {
+    _goToChild: function(designer, node) {
         var children = node.getChildren();
         if (children.length > 0) {
             var target = children[0];
@@ -375,14 +353,13 @@ mindplot.DesignerKeyboard = new Class({
         }
     },
 
-    _goToNode:function (designer, node) {
+    _goToNode: function(designer, node) {
         // First deselect all the nodes ...
         designer.deselectAll();
 
         // Give focus to the selected node....
         node.setOnFocus(true);
     }
-
 });
 
 mindplot.DesignerKeyboard.specialKeys = {
@@ -390,7 +367,7 @@ mindplot.DesignerKeyboard.specialKeys = {
     20: "capslock", 27: "esc", 32: "space", 33: "pageup", 34: "pagedown", 35: "end", 36: "home",
     37: "left", 38: "up", 39: "right", 40: "down", 45: "insert", 46: "del",
     96: "0", 97: "1", 98: "2", 99: "3", 100: "4", 101: "5", 102: "6", 103: "7",
-    104: "8", 105: "9", 106: "*", 107: "+", 109: "-", 110: ".", 111 : "/",
+    104: "8", 105: "9", 106: "*", 107: "+", 109: "-", 110: ".", 111: "/",
     112: "f1", 113: "f2", 114: "f3", 115: "f4", 116: "f5", 117: "f6", 118: "f7", 119: "f8",
     120: "f9", 121: "f10", 122: "f11", 123: "f12", 144: "numlock", 145: "scroll", 186: ";", 191: "/",
     220: "\\", 222: "'", 224: "meta"

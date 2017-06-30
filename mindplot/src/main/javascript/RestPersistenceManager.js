@@ -1,24 +1,7 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 mindplot.RESTPersistenceManager = new Class({
         Extends: mindplot.PersistenceManager,
-        initialize: function (options) {
+
+        initialize: function(options) {
             this.parent();
             $assert(options.documentUrl, "documentUrl can not be null");
             $assert(options.revertUrl, "revertUrl can not be null");
@@ -33,8 +16,7 @@ mindplot.RESTPersistenceManager = new Class({
             this.session = options.session;
         },
 
-        saveMapXml: function (mapId, mapXml, pref, saveHistory, events, sync) {
-
+        saveMapXml: function(mapId, mapXml, pref, saveHistory, events, sync) {
             var data = {
                 id: mapId,
                 xml: mapXml,
@@ -47,10 +29,9 @@ mindplot.RESTPersistenceManager = new Class({
             query = query + "&session=" + this.session;
 
             if (!persistence.onSave) {
-
                 // Mark save in process and fire a event unlocking the save ...
                 persistence.onSave = true;
-                persistence.clearTimeout = setTimeout(function () {
+                persistence.clearTimeout = setTimeout(function() {
                     persistence.clearTimeout = null;
                     persistence.onSave = false;
                 }, 10000);
@@ -63,22 +44,21 @@ mindplot.RESTPersistenceManager = new Class({
                     contentType: "application/json; charset=utf-8",
                     async: !sync,
 
-                    success: function (data, textStatus, jqXHRresponseText) {
+                    success: function(data, textStatus, jqXHRresponseText) {
                         persistence.timestamp = data;
                         events.onSuccess();
                     },
-                    error: function (jqXHR, textStatus, errorThrown) {
+                    error: function(jqXHR, textStatus, errorThrown) {
                         events.onError(persistence._buildError());
                     },
-                    complete: function () {
+                    complete: function() {
                         // Clear event timeout ...
                         if (persistence.clearTimeout) {
                             clearTimeout(persistence.clearTimeout);
                         }
                         persistence.onSave = false;
                     },
-                    fail: function (xhr, textStatus) {
-
+                    fail: function(xhr, textStatus) {
                         var responseText = xhr.responseText;
                         var userMsg = {severity: "SEVERE", message: $msg('SAVE_COULD_NOT_BE_COMPLETED')};
 
@@ -92,7 +72,6 @@ mindplot.RESTPersistenceManager = new Class({
                                 // Message could not be decoded ...
                             }
                             userMsg = persistence._buildError(serverMsg);
-
                         } else {
                             if (this.status == 405) {
                                 userMsg = {severity: "SEVERE", message: $msg('SESSION_EXPIRED')};
@@ -105,7 +84,7 @@ mindplot.RESTPersistenceManager = new Class({
             }
         },
 
-        discardChanges: function (mapId) {
+        discardChanges: function(mapId) {
             $.ajax({
                 url: this.revertUrl.replace("{id}", mapId),
                 async: false,
@@ -114,7 +93,7 @@ mindplot.RESTPersistenceManager = new Class({
             });
         },
 
-        unlockMap: function (mindmap) {
+        unlockMap: function(mindmap) {
             var mapId = mindmap.getId();
             $.ajax({
                 url: this.lockUrl.replace("{id}", mapId),
@@ -125,7 +104,7 @@ mindplot.RESTPersistenceManager = new Class({
             });
         },
 
-        _buildError: function (jsonSeverResponse) {
+        _buildError: function(jsonSeverResponse) {
             var message = jsonSeverResponse ? jsonSeverResponse.globalErrors[0] : null;
             var severity = jsonSeverResponse ? jsonSeverResponse.globalSeverity : null;
 
@@ -139,7 +118,7 @@ mindplot.RESTPersistenceManager = new Class({
             return {severity: severity, message: message};
         },
 
-        loadMapDom: function (mapId) {
+        loadMapDom: function(mapId) {
             // Let's try to open one from the local directory ...
             var xml;
             $.ajax({
@@ -147,7 +126,7 @@ mindplot.RESTPersistenceManager = new Class({
                 method: 'get',
                 async: false,
                 headers: {"Content-Type": "text/plain", "Accept": "application/xml"},
-                success: function (responseText) {
+                success: function(responseText) {
                     xml = responseText;
                 }
             });

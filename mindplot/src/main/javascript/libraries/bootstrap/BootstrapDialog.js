@@ -10,7 +10,7 @@ var BootstrapDialog = new Class({
         onEventData:{}
     },
 
-    initialize: function (title, options) {
+    initialize: function(title, options) {
         this.setOptions(options);
         this.options.onEventData.dialog = this;
         this._native = $('<div class="modal fade" tabindex="-1"></div>').append('<div class="modal-dialog"></div>');
@@ -83,7 +83,7 @@ var BootstrapDialog = new Class({
         throw "Unsupported operation";
     },
 
-    show: function () {
+    show: function() {
         this._native.modal();
     },
 

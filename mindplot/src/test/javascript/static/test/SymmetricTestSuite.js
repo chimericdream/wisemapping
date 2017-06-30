@@ -18,7 +18,7 @@
 mindplot.layout.SymmetricTestSuite = new Class({
     Extends: mindplot.layout.TestSuite,
 
-    initialize:function() {
+    initialize: function() {
         $('#symmetricTest').setStyle("display","block");
 
         this.testSymmetry();

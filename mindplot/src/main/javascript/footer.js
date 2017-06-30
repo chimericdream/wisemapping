@@ -1,5 +1,5 @@
 try {
     $(document).trigger('loadcomplete', 'mind');
-} catch (e) {
+} catch(e) {
     console.error(e.stack);
 }

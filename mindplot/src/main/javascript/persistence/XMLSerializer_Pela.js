@@ -1,32 +1,13 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 /**
  * @class
  */
 mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pela */{
-
     /**
      * @param mindmap
      * @throws will throw an error if mindmap is null or undefined
      * @return the created XML document (using the cross-browser implementation in core)
      */
-    toXML: function (mindmap) {
+    toXML: function(mindmap) {
         $assert(mindmap, "Can not save a null mindmap");
 
         var document = core.Utils.createDocument();
@@ -55,7 +36,6 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
         // Create Relationships
         var relationships = mindmap.getRelationships();
         if (relationships.length > 0) {
-
             for (var j = 0; j < relationships.length; j++) {
                 var relationship = relationships[j];
                 if (mindmap.findNodeById(relationship.getFromNode()) !== null && mindmap.findNodeById(relationship.getToNode()) !== null) {
@@ -69,20 +49,20 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
         return document;
     },
 
-    _topicToXML: function (document, topic) {
+    _topicToXML: function(document, topic) {
         var parentTopic = document.createElement("topic");
 
         // Set topic attributes...
         if (topic.getType() == mindplot.model.INodeModel.CENTRAL_TOPIC_TYPE) {
             parentTopic.setAttribute('central', 'true');
         } else {
-
             var pos = topic.getPosition();
             parentTopic.setAttribute("position", pos.x + ',' + pos.y);
 
             var order = topic.getOrder();
-            if (typeof order === 'number' && isFinite(order))
+            if (typeof order === 'number' && isFinite(order)) {
                 parentTopic.setAttribute("order", order);
+            }
         }
 
         var text = topic.getText();
@@ -97,7 +77,6 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
             if (shape == mindplot.model.TopicShape.IMAGE) {
                 parentTopic.setAttribute('image', topic.getImageSize().width + "," + topic.getImageSize().height + ":" + topic.getImageUrl());
             }
-
         }
 
         if (topic.areChildrenShrunken() && topic.getType() != mindplot.model.INodeModel.CENTRAL_TOPIC_TYPE) {
@@ -172,12 +151,11 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
             var childTopic = childTopics[j];
             var childDom = this._topicToXML(document, childTopic);
             parentTopic.appendChild(childDom);
-
         }
         return parentTopic;
     },
 
-    _noteTextToXML: function (document, elem, text) {
+    _noteTextToXML: function(document, elem, text) {
         if (text.indexOf('\n') == -1) {
             elem.setAttribute('text', this.rmXmlInv(text));
         } else {
@@ -188,11 +166,10 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
         }
     },
 
-    _relationshipToXML: function (document, relationship) {
+    _relationshipToXML: function(document, relationship) {
         var result = document.createElement("relationship");
         result.setAttribute("srcTopicId", relationship.getFromNode());
         result.setAttribute("destTopicId", relationship.getToNode());
-
 
         var lineType = relationship.getLineType();
         result.setAttribute("lineType", lineType);
@@ -219,7 +196,7 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
      * @throws will throw an error if the document element is not consistent with a wisemap's root
      * element
      */
-    loadFromDom: function (dom, mapId) {
+    loadFromDom: function(dom, mapId) {
         $assert(dom, "dom can not be null");
         $assert(mapId, "mapId can not be null");
 
@@ -244,8 +221,9 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
                         break;
                     case "relationship":
                         var relationship = this._deserializeRelationship(child, mindmap);
-                        if (relationship != null)
+                        if (relationship != null) {
                             mindmap.addRelationship(relationship);
+                        }
                         break;
                 }
             }
@@ -255,7 +233,7 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
         return mindmap;
     },
 
-    _deserializeNode: function (domElem, mindmap) {
+    _deserializeNode: function(domElem, mindmap) {
         var type = (domElem.getAttribute('central') != null) ? mindplot.model.INodeModel.CENTRAL_TOPIC_TYPE : mindplot.model.INodeModel.MAIN_TOPIC_TYPE;
 
         // Load attributes...
@@ -360,7 +338,6 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
                     var childTopic = this._deserializeNode(child, mindmap);
                     childTopic.connectTo(topic);
                 } else if (mindplot.TopicFeature.isSupported(child.tagName)) {
-
                     // Load attributes ...
                     var namedNodeMap = child.attributes;
                     var attributes = {};
@@ -379,7 +356,6 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
                     var featureType = child.tagName;
                     var feature = mindplot.TopicFeature.createModel(featureType, attributes);
                     topic.addFeature(feature);
-
                 } else if (child.tagName == "text") {
                     var nodeText = this._deserializeNodeText(child);
                     topic.setText(nodeText);
@@ -389,7 +365,7 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
         return topic;
     },
 
-    _deserializeTextAttr: function (domElem) {
+    _deserializeTextAttr: function(domElem) {
         var value = domElem.getAttribute("text");
         if (!$defined(value)) {
             var children = domElem.childNodes;
@@ -412,7 +388,7 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
         return value;
     },
 
-    _deserializeNodeText: function (domElem) {
+    _deserializeNodeText: function(domElem) {
         var children = domElem.childNodes;
         var value = null;
         for (var i = 0; i < children.length; i++) {
@@ -424,7 +400,7 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
         return value;
     },
 
-    _deserializeRelationship: function (domElement, mindmap) {
+    _deserializeRelationship: function(domElement, mindmap) {
         var srcId = domElement.getAttribute("srcTopicId");
         var destId = domElement.getAttribute("destTopicId");
         var lineType = domElement.getAttribute("lineType");
@@ -453,7 +429,7 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
         model.setStartArrow('true');
         return model;
     },
-    
+
     /**
      * This method ensures that the output String has only
      * valid XML unicode characters as specified by the
@@ -465,10 +441,10 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
      * @param in The String whose non-valid characters we want to remove.
      * @return The in String, stripped of non-valid characters.
      */
-    rmXmlInv: function (str) {
-
-        if (str == null || str == undefined)
+    rmXmlInv: function(str) {
+        if (str == null || str == undefined) {
             return null;
+        }
 
         var result = "";
         for (var i=0;i<str.length;i++){
@@ -482,7 +458,6 @@ mindplot.persistence.XMLSerializer_Pela = new Class(/** @lends XMLSerializer_Pel
 
         }
         return result;
-
     }
 });
 

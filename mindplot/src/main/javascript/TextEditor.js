@@ -1,29 +1,10 @@
-/*
- *    Copyright [2015] [wisemapping]
- *
- *   Licensed under WiseMapping Public License, Version 1.0 (the "License").
- *   It is basically the Apache License, Version 2.0 (the "License") plus the
- *   "powered by wisemapping" text requirement on every single page;
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the license at
- *
- *       http://www.wisemapping.org/license
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- */
-
 //FIXME: Not used!
 mindplot.TextEditor = new Class({
-    initialize: function (topic) {
+    initialize: function(topic) {
         this._topic = topic;
     },
 
-    _buildEditor: function () {
-
+    _buildEditor: function() {
         this._size = {width: 500, height: 100};
         var result = new Element('div');
         result.setStyles({
@@ -35,7 +16,6 @@ mindplot.TextEditor = new Class({
             }
         );
 
-
         var inputContainer = new Element('div');
         inputContainer.setStyles({
             border: "none",
@@ -43,13 +23,11 @@ mindplot.TextEditor = new Class({
         });
         inputContainer.inject(result);
 
-        var inputText = new Element('input',
-            {
-                type: "text",
-                tabindex: '-1',
-                value: ""
-            }
-        );
+        var inputText = new Element('input', {
+            type: "text",
+            tabindex: '-1',
+            value: ""
+        });
         inputText.setStyles({
             border: "none",
             background: "transparent"
@@ -65,16 +43,15 @@ mindplot.TextEditor = new Class({
         spanElem.setStyle('nowrap', 'nowrap');
         spanElem.inject(spanContainer);
 
-
         return result;
     },
 
-    _registerEvents: function (divElem) {
+    _registerEvents: function(divElem) {
         var inputElem = this._getTextareaElem();
         var spanElem = this._getSpanElem();
         var me = this;
 
-        divElem.addEvent('keydown', function (event) {
+        divElem.addEvent('keydown', function(event) {
             switch (event.key) {
                 case 'esc':
                     me.close(false);
@@ -95,23 +72,22 @@ mindplot.TextEditor = new Class({
         });
 
         // If the user clicks on the input, all event must be ignored ...
-        divElem.addEvent('click', function (event) {
+        divElem.addEvent('click', function(event) {
             event.stopPropagation();
         });
-        divElem.addEvent('dblclick', function (event) {
+        divElem.addEvent('dblclick', function(event) {
             event.stopPropagation();
         });
-        divElem.addEvent('mousedown', function (event) {
+        divElem.addEvent('mousedown', function(event) {
             event.stopPropagation();
         });
     },
 
-    isVisible: function () {
+    isVisible: function() {
         return $defined(this._containerElem) && this._containerElem.getStyle('display') == 'block';
     },
 
-    _updateModel: function () {
-
+    _updateModel: function() {
         if (this._topic.getText() != this._getText()) {
             var text = this._getText();
             var topicId = this._topic.getId();
@@ -121,8 +97,7 @@ mindplot.TextEditor = new Class({
         }
     },
 
-    show: function (text) {
-
+    show: function(text) {
         if (!this.isVisible()) {
             //Create editor ui
             var editorElem = this._buildEditor();
@@ -134,8 +109,7 @@ mindplot.TextEditor = new Class({
         }
     },
 
-    _showEditor: function (defaultText) {
-
+    _showEditor: function(defaultText) {
         var topic = this._topic;
 
         // Hide topic text ...
@@ -154,7 +128,7 @@ mindplot.TextEditor = new Class({
 
         var me = this;
         // Set editor's initial size
-        var displayFunc = function () {
+        var displayFunc = function() {
             // Position the editor and set the size...
             var textShape = me._topic.getTextShape();
 
@@ -168,13 +142,12 @@ mindplot.TextEditor = new Class({
             var textareaElem = me._getTextareaElem();
             textareaElem.focus();
             me._positionCursor(textareaElem, !$defined(defaultText));
-
         };
 
         displayFunc.delay(10);
     },
 
-    _setStyle: function (fontStyle) {
+    _setStyle: function(fontStyle) {
         var inputField = this._getTextareaElem();
         var spanField = this._getSpanElem();
         if (!$defined(fontStyle.font)) {
@@ -200,7 +173,7 @@ mindplot.TextEditor = new Class({
         spanField.style.fontSize = fontStyle.size + "px";
     },
 
-    _setText: function (text) {
+    _setText: function(text) {
         var inputField = this._getTextareaElem();
         inputField.size = text.length + 1;
         this._containerElem.style.width = (inputField.size * parseInt(inputField.style.fontSize) + 100) + "px";
@@ -209,19 +182,19 @@ mindplot.TextEditor = new Class({
         inputField.value = text;
     },
 
-    _getText: function () {
+    _getText: function() {
         return this._getTextareaElem().value;
     },
 
-    _getTextareaElem: function () {
+    _getTextareaElem: function() {
         return this._containerElem.getElement('input');
     },
 
-    _getSpanElem: function () {
+    _getSpanElem: function() {
         return this._containerElem.getElement('span');
     },
 
-    _setEditorSize: function (width, height) {
+    _setEditorSize: function(width, height) {
         var textShape = this._topic.getTextShape();
         var scale = web2d.peer.utils.TransformUtil.workoutScale(textShape._peer);
         this._size = {width: width * scale.width, height: height * scale.height};
@@ -229,27 +202,24 @@ mindplot.TextEditor = new Class({
         this._containerElem.style.height = this._size.height + "px";
     },
 
-    _positionCursor: function (inputElem, selectText) {
+    _positionCursor: function(inputElem, selectText) {
         // Select text if it's required ...
-        if (inputElem.createTextRange) //ie
-        {
+        if (inputElem.createTextRange) { //ie
             var range = inputElem.createTextRange();
             var pos = inputElem.value.length;
             if (!selectText) {
                 range.select();
                 range.move("character", pos);
-            }
-            else {
+            } else {
                 range.move("character", pos);
                 range.select();
             }
-        }
-        else if (!selectText) {
+        } else if (!selectText) {
             inputElem.setSelectionRange(0, inputElem.value.length);
         }
     },
 
-    close: function (update) {
+    close: function(update) {
         if (this.isVisible()) {
             // Update changes ...
             if (!$defined(update) || update) {
@@ -265,4 +235,3 @@ mindplot.TextEditor = new Class({
         }
     }
 });
-

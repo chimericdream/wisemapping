@@ -1,6 +1,4 @@
-
 describe("Balanced Test Suite", function() {
-
     it("balancedTest", function() {
         var position = {x:0, y:0};
         var manager = new mindplot.layout.LayoutManager(0, TestSuite.ROOT_NODE_SIZE);
@@ -94,7 +92,6 @@ describe("Balanced Test Suite", function() {
         expect(manager.find(10).getPosition().x).toBeLessThan(manager.find(6).getPosition().x);
         expect(manager.find(11).getPosition().x).toBeLessThan(manager.find(10).getPosition().x);
         expect(manager.find(12).getPosition().x).toBeLessThan(manager.find(10).getPosition().x);
-
     });
 
     it("balancedPredictTest", function() {
@@ -278,7 +275,5 @@ describe("Balanced Test Suite", function() {
         expect(prediction3e.position.x).toEqual(manager.find(1).getPosition().x);
         expect(prediction3e.position.y).toEqual(manager.find(1).getPosition().y);
         expect(prediction3e.order).toEqual(manager.find(1).getOrder());
-
     });
-
 });
