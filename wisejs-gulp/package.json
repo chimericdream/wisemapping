@@ -1,0 +1,44 @@
+{
+  "name": "node-wisemapping",
+  "version": "5.0.0-alpha",
+  "description": "",
+  "author": "Bill Parrott <bill@chimericdream.com>",
+  "homepage": "https://github.com/chimericdream/wisemapping",
+  "scripts": {
+    "test": "istanbul cover node_modules/mocha/bin/_mocha \"test/**/*.spec.js\"",
+    "lint": "eslint src",
+    "devlint": "eslint src -- --dev"
+  },
+  "main": "src/main.js",
+  "repository": "chimericdream/node-wisemapping",
+  "bugs": {
+    "url": "https://github.com/chimericdream/wisemapping/issues"
+  },
+  "keywords": [
+    "wisemapping",
+    "mind map",
+    "diagram"
+  ],
+  "dependencies": {
+    "lodash": "^4.14.0",
+    "proxy-mate": "^0.3.x"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^3.5.0",
+    "del": "^3.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-chimericdream": "^1.0.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-line-ending-corrector": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-trimlines": "^1.0.1",
+    "istanbul": "^0.4.4",
+    "mocha": "^3.0.1",
+    "sinon": "^1.17.5"
+  },
+  "license": "MIT"
+}
