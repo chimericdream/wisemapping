@@ -1,7 +1,7 @@
 /* global define */
 'use strict';
 
-define(['assert'], ($assert) => {
+define(['utils/assert', 'web2d/elements/image'], ($assert, ImageElement) => {
     class Icon {
         static get BASE_SIZE() {
             return 90;
@@ -10,7 +10,7 @@ define(['assert'], ($assert) => {
         constructor(url) {
             $assert(url, 'topic can not be null');
 
-            this._image = new web2d.Image();
+            this._image = new ImageElement();
             this._image.setHref(url);
             this._image.setSize(this.BASE_SIZE, this.BASE_SIZE);
         }

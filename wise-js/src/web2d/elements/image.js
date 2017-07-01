@@ -8,8 +8,8 @@ define(['element', 'toolkit'], (Element, Toolkit) => {
         }
 
         constructor(attributes) {
-            let peer = Toolkit.createImage();
-            super(peer, attributes);
+            super();
+            this.init(Toolkit.createImage(), attributes);
         }
 
         setHref(href) {

@@ -4,8 +4,8 @@
 define(['utils/is-defined', 'web2d/point', 'web2d/peer/svg/element'], ($defined, Point, ElementPeer) => {
     class ArrowPeer extends ElementPeer {
         constructor() {
-            let svgElement = document.createElementNS(ElementPeer.svgNamespace, 'path');
-            super(svgElement);
+            super();
+            this.init(document.createElementNS(ElementPeer.svgNamespace, 'path'));
             this._style = {};
             this._controlPoint = new Point();
             this._fromPoint = new Point();
@@ -50,7 +50,7 @@ define(['utils/is-defined', 'web2d/point', 'web2d/peer/svg/element'], ($defined,
         }
 
         _redraw() {
-            let x,y, xp, yp;
+            let x, y, xp, yp;
             let fp = this._fromPoint;
             let cp = this._controlPoint;
 

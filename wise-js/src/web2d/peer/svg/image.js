@@ -4,8 +4,8 @@
 define(['utils/is-defined', 'web2d/peer/svg/element'], ($defined, ElementPeer) => {
     class ImagePeer extends ElementPeer {
         constructor() {
-            let svgElement = document.createElementNS(ElementPeer.svgNamespace, 'image');
-            super(svgElement);
+            super();
+            this.init(document.createElementNS(ElementPeer.svgNamespace, 'image'));
             this._position = {'x': 0, 'y': 0};
             this._href = '';
             this._native.setAttribute('preserveAspectRatio', 'none');

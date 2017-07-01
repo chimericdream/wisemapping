@@ -14,8 +14,8 @@ define([
 ) => {
     class GroupPeer extends ElementPeer {
         constructor() {
-            let svgElement = document.createElementNS(ElementPeer.svgNamespace, 'g');
-            super(svgElement);
+            super();
+            this.init(document.createElementNS(ElementPeer.svgNamespace, 'g'));
             this._native.setAttribute('preserveAspectRatio', 'none');
             this._coordSize = {'width': 1, 'height': 1};
             this._native.setAttribute('focusable', 'true');

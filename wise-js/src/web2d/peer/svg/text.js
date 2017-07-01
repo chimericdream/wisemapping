@@ -4,8 +4,8 @@
 define(['jquery', 'utils/is-defined', 'web2d/font', 'web2d/peer/svg/element'], ($, $defined, Font, ElementPeer) => {
     class TextPeer extends ElementPeer {
         constructor() {
-            let svgElement = document.createElementNS(ElementPeer.svgNamespace, 'text');
-            super(svgElement);
+            super();
+            this.init(document.createElementNS(ElementPeer.svgNamespace, 'text'));
             this._position = {'x': 0, 'y': 0};
             this._font = new Font('Arial', this);
         }

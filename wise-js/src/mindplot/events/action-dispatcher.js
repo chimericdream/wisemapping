@@ -14,6 +14,7 @@ define(['assert', 'mindplot/events'], ($assert, Events) => {
         }
 
         constructor(commandContext) {
+            super();
             $assert(commandContext, "commandContext can not be null");
         }
 

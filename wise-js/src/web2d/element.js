@@ -45,7 +45,10 @@ define(['assert', 'is-defined'], ($assert, $defined) => {
             };
         }
 
-        constructor(peer, attributes) {
+        constructor() {
+        }
+
+        init(peer, attributes) {
             $assert((peer !== null), 'Element peer can not be null');
 
             this._peer = peer;

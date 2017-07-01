@@ -17,7 +17,8 @@ define(['element', 'toolkit'], (Element, Toolkit) => {
         }
 
         constructor(params) {
-            super(Toolkit.createArrow(), this._initializeAttributes(this.defaults, params));
+            super();
+            this.init(Toolkit.createArrow(), this._initializeAttributes(this.defaults, params));
         }
 
         setFrom(x, y) {

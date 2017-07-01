@@ -25,7 +25,8 @@ define(['assert', 'element', 'toolkit'], ($assert, Element, Toolkit) => {
         }
 
         constructor(params) {
-            super(Toolkit.createCurvedLine(), this._initializeAttributes(this.defaults, params));
+            super();
+            this.init(Toolkit.createCurvedLine(), this._initializeAttributes(this.defaults, params));
         }
 
         setFrom(x, y) {

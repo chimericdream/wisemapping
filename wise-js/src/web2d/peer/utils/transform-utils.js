@@ -1,7 +1,7 @@
 /* global define */
 'use strict';
 
-define(['utils/is-defined'], ($defined) => {
+define(() => {
     class TransformUtils {
         static workoutScale(elementPeer) {
             let current = elementPeer.getParent();

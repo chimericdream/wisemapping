@@ -1,7 +1,7 @@
-/* global define, window */
+/* global define, document */
 'use strict';
 
-define(['jQuery', 'assert', 'is-defined', 'element', 'toolkit'], ($, $assert, $defined, Element, Toolkit) => {
+define(['jQuery', 'assert', 'is-defined', 'web2d/element', 'web2d/toolkit'], ($, $assert, $defined, Element, Toolkit) => {
     class Workspace extends Element {
         static get TYPE() {
             return 'Workspace';
@@ -19,8 +19,9 @@ define(['jQuery', 'assert', 'is-defined', 'element', 'toolkit'], ($, $assert, $d
         }
 
         constructor(params) {
+            super();
             this._htmlContainer = this._createDivContainer();
-            super(Toolkit.createWorkspace(this._htmlContainer), this._initializeAttributes(this.defaults, params));
+            this.init(Toolkit.createWorkspace(this._htmlContainer), this._initializeAttributes(this.defaults, params));
             this._htmlContainer.append(this._peer._native);
         }
 
@@ -44,7 +45,7 @@ define(['jQuery', 'assert', 'is-defined', 'element', 'toolkit'], ($, $assert, $d
          * Create a new div element that will be responsible for containing the workspace elements.
          */
         _createDivContainer() {
-            let container = window.document.createElement('div');
+            let container = document.createElement('div');
             container.id = 'workspaceContainer';
             container.style.position = 'relative';
             container.style.top = '0px';

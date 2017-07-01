@@ -19,7 +19,8 @@ define(['element', 'toolkit'], (Element, Toolkit) => {
         }
 
         constructor(params) {
-            super(Toolkit.createElipse(), this._initializeAttributes(this.defaults, params));
+            super();
+            this.init(Toolkit.createElipse(), this._initializeAttributes(this.defaults, params));
         }
 
         getSize() {

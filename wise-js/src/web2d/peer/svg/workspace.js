@@ -4,9 +4,9 @@
 define(['utils/is-defined', 'web2d/peer/utils/event-utils', 'web2d/peer/svg/element'], ($defined, EventUtils, ElementPeer) => {
     class WorkspacePeer extends ElementPeer {
         constructor(element) {
+            super();
+            this.init(document.createElementNS(ElementPeer.svgNamespace, 'svg'));
             this._element = element;
-            let svgElement = document.createElementNS(ElementPeer.svgNamespace, 'svg');
-            super(svgElement);
             this._native.setAttribute('focusable', 'true');
             this._native.setAttribute('id', 'workspace');
             this._native.setAttribute('preserveAspectRatio', 'none');
@@ -65,7 +65,7 @@ define(['utils/is-defined', 'web2d/peer/utils/event-utils', 'web2d/peer/svg/elem
             EventUtils.broadcastChangeEvent(child, 'onChangeCoordSize');
         }
 
-        getCoordOrigin(child) {
+        getCoordOrigin() {
             let viewBox = this._native.getAttribute('viewBox');
             let coords = [1, 1, 1, 1];
             if (viewBox != null) {

@@ -4,8 +4,8 @@
 define(['utils/is-defined', 'web2d/peer/svg/element'], ($defined, ElementPeer) => {
     class RectPeer extends ElementPeer {
         constructor(arc) {
-            let svgElement = document.createElementNS(ElementPeer.svgNamespace, 'rect');
-            super(svgElement);
+            super();
+            this.init(document.createElementNS(ElementPeer.svgNamespace, 'rect'));
             this._arc = arc;
             this.attachChangeEventListener('strokeStyle', this.updateStrokeStyle);
         }

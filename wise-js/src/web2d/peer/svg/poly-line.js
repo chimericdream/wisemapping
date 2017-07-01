@@ -4,8 +4,8 @@
 define(['utils/is-defined', 'web2d/point', 'web2d/elements/poly-line', 'web2d/peer/svg/element'], ($defined, Point, PolyLineElement, ElementPeer) => {
     class PolyLinePeer extends ElementPeer {
         constructor() {
-            let svgElement = document.createElementNS(ElementPeer.svgNamespace, 'polyline');
-            super(svgElement);
+            super();
+            this.init(document.createElementNS(ElementPeer.svgNamespace, 'polyline'));
             this.setFill('none');
             this.breakDistance = 10;
         }

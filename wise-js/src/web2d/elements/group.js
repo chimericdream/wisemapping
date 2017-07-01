@@ -19,7 +19,8 @@ define(['assert', 'is-defined', 'element', 'toolkit'], ($assert, $defined, Eleme
         }
 
         constructor(params) {
-            super(Toolkit.createGroup(), this._initializeAttributes(this.defaults, params));
+            super();
+            this.init(Toolkit.createGroup(), this._initializeAttributes(this.defaults, params));
         }
 
         /**

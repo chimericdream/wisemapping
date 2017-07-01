@@ -33,7 +33,9 @@ define([
             };
         }
 
-        constructor(svgElement) {
+        constructor() {}
+
+        init(svgElement) {
             this._native = svgElement;
             this._size = {'width': 1, 'height': 1};
             this._changeListeners = {};

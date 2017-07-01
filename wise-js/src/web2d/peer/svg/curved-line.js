@@ -4,8 +4,8 @@
 define(['utils/is-defined', 'web2d/point', 'web2d/peer/svg/element'], ($defined, Point, ElementPeer) => {
     class CurvedLinePeer extends ElementPeer {
         constructor() {
-            let svgElement = document.createElementNS(ElementPeer.svgNamespace, 'path');
-            super(svgElement);
+            super();
+            this.init(document.createElementNS(ElementPeer.svgNamespace, 'path'));
             this._style = {'fill': '#495879'};
             this._updateStyle();
             this._customControlPoint_1 = false;

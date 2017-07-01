@@ -8,7 +8,7 @@ define(() => {
         }
 
         _removeOn(string) {
-            return string.replace(/^on([A-Z])/, function(full, first) {
+            return string.replace(/^on([A-Z])/, (full, first) => {
                 return first.toLowerCase();
             });
         }

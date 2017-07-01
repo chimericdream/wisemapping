@@ -19,11 +19,13 @@ define(['element', 'toolkit'], (Element, Toolkit) => {
         }
 
         constructor(arc, params) {
+            super();
+
             if (arc && arc > 1) {
                 throw 'Arc must be 0 <= arc <= 1';
             }
 
-            super(Toolkit.createRect(arc), this._initializeAttributes(this.defaults, params));
+            this.init(Toolkit.createRect(arc), this._initializeAttributes(this.defaults, params));
         }
 
         getSize() {

@@ -4,8 +4,8 @@
 define(['utils/is-defined', 'web2d/point', 'web2d/peer/svg/element'], ($defined, Point, ElementPeer) => {
     class EllipsePeer extends ElementPeer {
         constructor() {
-            let svgElement = document.createElementNS(ElementPeer.svgNamespace, 'ellipse');
-            super(svgElement);
+            super();
+            this.init(document.createElementNS(ElementPeer.svgNamespace, 'ellipse'));
             this.attachChangeEventListener('strokeStyle', this.updateStrokeStyle);
             this._position = {'x': 0, 'y': 0};
         }

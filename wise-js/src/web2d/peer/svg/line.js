@@ -4,8 +4,8 @@
 define(['utils/is-defined', 'web2d/point', 'web2d/peer/svg/element'], ($defined, Point, ElementPeer) => {
     class LinePeer extends ElementPeer {
         constructor() {
-            let svgElement = document.createElementNS(ElementPeer.svgNamespace, 'line');
-            super(svgElement);
+            super();
+            this.init(document.createElementNS(ElementPeer.svgNamespace, 'line'));
             this.attachChangeEventListener('strokeStyle', this.updateStrokeStyle);
         }
 

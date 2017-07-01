@@ -12,7 +12,8 @@ define(['util/assert', 'element', 'toolkit'], ($assert, Element, Toolkit) => {
         }
 
         constructor(params) {
-            super(Toolkit.createText(), this._initializeAttributes(this.defaults, params));
+            super();
+            this.init(Toolkit.createText(), this._initializeAttributes(this.defaults, params));
         }
 
         setText(text) {
